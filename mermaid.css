@@ -36,6 +36,6 @@ div.mermaid::after {
 }
 
 rect {
-  fill: var(--background-secondary) !important;
   stroke: var(--border-color) !important;
+  fill: transparent !important;
 }
