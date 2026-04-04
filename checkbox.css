@@ -3,43 +3,37 @@ body {
 }
 
 /* 已完成：Done */
-[data-task=x] input[type=checkbox]:checked, 
+[data-task=x] input[type=checkbox]:checked,
 [data-task=x][type=checkbox]:checked {
   --checkbox-color: green;
-  --checkbox-color-hover:green;
+  --checkbox-color-hover: green;
 }
-.HyperMD-task-line[data-task="x"],
-.task-list-item[data-task="x"] {
+:is(.HyperMD-task-line, .task-list-item)[data-task="x"] {
   text-decoration: none !important;
 }
 
 /* 不再实现 */
-[data-task="-"] input[type=checkbox]:checked, 
+[data-task="-"] input[type=checkbox]:checked,
 [data-task="-"][type=checkbox]:checked {
   --checkbox-color: red !important;
   --checkbox-color-hover: red !important;
 }
-
-.HyperMD-task-line[data-task="-"],
-.task-list-item[data-task="-"] {
+:is(.HyperMD-task-line, .task-list-item)[data-task="-"] {
   text-decoration: none !important;
   color: var(--checklist-done-color);
 }
-
-[data-task="-"] input[type=checkbox]:checked::after, 
+[data-task="-"] input[type=checkbox]:checked::after,
 [data-task="-"][type=checkbox]:checked::after {
   -webkit-mask-image: url("data:image/svg+xml,%3Csvg width='800px' height='800px' viewBox='0 0 16 16' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M2 8a1 1 0 011-1h10a1 1 0 110 2H3a1 1 0 01-1-1z' fill='%23000000'/%3E%3C/svg%3E")
 }
 
 /* 有问题 */
-
-[data-task="?"] input[type=checkbox]:checked, 
+[data-task="?"] input[type=checkbox]:checked,
 [data-task="?"][type=checkbox]:checked {
   --checkbox-color: transparent;
   --checkbox-color-hover: transparent;
 }
-
-[data-task="?"] input[type=checkbox]:checked::after, 
+[data-task="?"] input[type=checkbox]:checked::after,
 [data-task="?"][type=checkbox]:checked::after {
   background-color: #c8857f;
   -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3C!--!  --%3E%3Cpath d='M256 512c141.4 0 256-114.6 256-256S397.4 0 256 0S0 114.6 0 256S114.6 512 256 512zM169.8 165.3c7.9-22.3 29.1-37.3 52.8-37.3h58.3c34.9 0 63.1 28.3 63.1 63.1c0 22.6-12.1 43.5-31.7 54.8L280 264.4c-.2 13-10.9 23.6-24 23.6c-13.3 0-24-10.7-24-24V250.5c0-8.6 4.6-16.5 12.1-20.8l44.3-25.4c4.7-2.7 7.6-7.7 7.6-13.1c0-8.4-6.8-15.1-15.1-15.1H222.6c-3.4 0-6.4 2.1-7.5 5.3l-.4 1.2c-4.4 12.5-18.2 19-30.6 14.6s-19-18.2-14.6-30.6l.4-1.2zM288 352c0 17.7-14.3 32-32 32s-32-14.3-32-32s14.3-32 32-32s32 14.3 32 32z'/%3E%3C/svg%3E");
@@ -47,13 +41,12 @@ body {
 }
 
 /* 正在实现 */
-[data-task="+"] input[type=checkbox]:checked, 
+[data-task="+"] input[type=checkbox]:checked,
 [data-task="+"][type=checkbox]:checked {
   --checkbox-color: orange !important;
   --checkbox-color-hover: orange !important;
 }
-
-[data-task="+"] input[type=checkbox]:checked::after, 
+[data-task="+"] input[type=checkbox]:checked::after,
 [data-task="+"][type=checkbox]:checked::after {
   -webkit-mask-image: url("data:image/svg+xml,%3Csvg width='800px' height='800px' viewBox='0 0 16 16' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill='%23000000' d='M3.70711,2.29289 L8.70711,7.29289 C9.09763,7.68342 9.09763,8.31658 8.70711,8.70711 L3.70711,13.7071 C3.31658,14.0976 2.68342,14.0976 2.29289,13.7071 C1.90237,13.3166 1.90237,12.6834 2.29289,12.2929 L6.58579,8 L2.29289,3.70711 C1.90237,3.31658 1.90237,2.68342 2.29289,2.29289 C2.68342,1.90237 3.31658,1.90237 3.70711,2.29289 Z M8.70711,2.29289 L13.7071,7.29289 C14.0976,7.68342 14.0976,8.31658 13.7071,8.70711 L8.70711,13.7071 C8.31658,14.0976 7.68342,14.0976 7.29289,13.7071 C6.90237,13.3166 6.90237,12.6834 7.29289,12.2929 L11.5858,8 L7.29289,3.70711 C6.90237,3.31658 6.90237,2.68342 7.29289,2.29289 C7.68342,1.90237 8.31658,1.90237 8.70711,2.29289 Z'/%3E%3C/svg%3E")
 }

@@ -1,18 +1,15 @@
 /* Mermaid */
-/* svg[id=mermaid][width][height][viewBox] {
-  max-width: 95%;
-  max-height: 95%;
-} */
 div.mermaid {
   margin-left: 0 !important;
   text-align: center;
-  resize:both;
-  overflow:none;
+  resize: both;
+  overflow: visible;
   margin-bottom: 2px;
-  position:relative;
+  position: relative;
   max-height: 100%;
   max-width: 100%;
 }
+
 div.mermaid svg {
   max-width: 100%;
   max-height: 100%;
@@ -20,19 +17,18 @@ div.mermaid svg {
   margin: 0 auto;
   padding: 3px;
   display: block;
-  border-color: var(--border-color);
-  border-width: 1px;
-  border-style: solid;
+  border: 1px solid var(--border-color);
   border-radius: var(--radius-s);
 }
+
 div.mermaid::after {
-  content:'';
-  display:block;
-  width:10px;
-  height:10px;
-  position:absolute;
-  right:0;
-  bottom:0;
+  content: '';
+  display: block;
+  width: 10px;
+  height: 10px;
+  position: absolute;
+  right: 0;
+  bottom: 0;
 }
 
 rect {

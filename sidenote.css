@@ -1,4 +1,5 @@
-/* configurations that can be customized in the Style Settings plugin */
+/* ===== 可配置变量（Style Settings 插件） ===== */
+
 body {
     --sidenote-default-position: right;
     --sidenote-width: 15rem;
@@ -12,7 +13,7 @@ body {
 }
 
 
-/* store inline margins on line blocks */
+/* ===== 行内 margin 变量 ===== */
 
 .markdown-preview-view .markdown-preview-sizer >div,
 .markdown-source-view .cm-content >div {
@@ -24,14 +25,15 @@ body {
 }
 
 
-/* use container to determine available spaces for sidenotes */
+/* ===== 容器查询设置 ===== */
+
 .markdown-reading-view, .markdown-source-view {
     container-name: PageContainer;
     container-type: inline-size;
 }
 
 
-/* assign values to --sidenote-width and --sidenote-edgeout variables based on cases */
+/* ===== 宽度/edgeout 计算 ===== */
 
 /* when Readable Line Width is off */
 
@@ -272,7 +274,8 @@ body:not(.minimal-line-nums) .markdown-source-view.is-readable-line-width:is(.le
 }
 
 
-/* if the current document has leftsided/rightsided cssclasses, move sidenote's default position correspondingly to the right/left */
+/* ===== leftsided/rightsided 文档布局 ===== */
+
 .markdown-source-view.leftsided, .markdown-preview-view.leftsided {
     --sidenote-default-position: right;
 }
@@ -280,7 +283,7 @@ body:not(.minimal-line-nums) .markdown-source-view.is-readable-line-width:is(.le
     --sidenote-default-position: left;
 }
 
-/* when Readable Line Width is on, move the document texts leftsided/rightsided */
+/* Readable Line Width 下移动文档内容 */
 .markdown-source-view.mod-cm6.is-readable-line-width.leftsided .cm-sizer,
 .markdown-preview-view.is-readable-line-width.leftsided .markdown-preview-sizer {
     margin-left: 0rem;
@@ -289,7 +292,8 @@ body:not(.minimal-line-nums) .markdown-source-view.is-readable-line-width:is(.le
 .markdown-preview-view.is-readable-line-width.rightsided .markdown-preview-sizer {
     margin-right: 0rem;
 }
-/* minimal-theme compatibility: need higher specificity to override minimal-theme's !important property */
+
+/* minimal-theme 兼容：需要更高特异性来覆盖 minimal-theme 的 !important */
 @container PageContainer (not style(--file-margins: 32px)) and style(--line-width) {
     .markdown-preview-view.is-readable-line-width.leftsided .markdown-preview-sizer>div,
     .markdown-source-view.mod-cm6.is-readable-line-width.leftsided .cm-contentContainer.cm-contentContainer>.cm-content>div,
@@ -308,30 +312,59 @@ body:not(.minimal-line-nums) .markdown-source-view.is-readable-line-width:is(.le
 }
 
 
-/* [!sidenote] callouts: strip away default callout styles and the edit button */
-.callout[data-callout|="sidenote"] {
+/* ===== Callout 样式剥离（sidenote + stickynote 共用） ===== */
+
+:is(.callout[data-callout|="sidenote"], .callout[data-callout|="stickynote"]) {
     .callout-title {
         display: none;
     }
     --p-spacing: 0;
     margin-block: 0;
+}
+
+/* sidenote 额外剥离背景和内边距 */
+.callout[data-callout|="sidenote"] {
     background-color: transparent;
     padding: unset;
 }
-.cm-callout:has(.callout[data-callout|="sidenote"]) > .edit-block-button {
+
+/* 隐藏编辑按钮 */
+.cm-callout:has(
+    .callout[data-callout|="sidenote"],
+    .callout[data-callout|="stickynote"],
+    .callout[data-callout-metadata~="aside"],
+    .callout[data-callout-metadata~="aside-r"],
+    .callout[data-callout-metadata~="aside-l"]
+) > .edit-block-button {
     display: none;
 }
-/* need higher specificity to override obsidian app's !important property */
-.markdown-source-view.mod-cm6 .cm-content > .cm-callout[contenteditable=false]:has(.callout[data-callout|="sidenote"]) {
+
+/* 覆盖 Obsidian 的 !important overflow 属性 */
+.markdown-source-view.mod-cm6 .cm-content > .cm-callout[contenteditable=false]:has(
+    .callout[data-callout|="sidenote"],
+    .callout[data-callout|="stickynote"],
+    .callout[data-callout-metadata~="aside"],
+    .callout[data-callout-metadata~="aside-r"],
+    .callout[data-callout-metadata~="aside-l"]
+) {
     overflow: visible;
     contain: none !important;
 }
-/* extra shift in Live Preview mode due to callouts syntax requiring an extra empty line */
-.markdown-source-view .callout[data-callout|="sidenote"] {
+
+/* Live Preview 模式下的额外偏移（callout 语法需要额外空行） */
+.markdown-source-view :is(
+    .callout[data-callout|="sidenote"],
+    .callout[data-callout|="stickynote"],
+    .callout[data-callout-metadata~="aside"],
+    .callout[data-callout-metadata~="aside-r"],
+    .callout[data-callout-metadata~="aside-l"]
+) {
     margin-top: 2.1em;
 }
 
-/* Tufte-style means smaller font-size, minimal margins and paddings, whereas Callout-style inherits normal font-size and broader paddings */
+
+/* ===== Tufte 风格（仅 sidenote）===== */
+
 .sidenote, .sidenote-r, .sidenote-l, .callout[data-callout|="sidenote"] {
     margin-top: 0.3em;
     margin-bottom: 0;
@@ -341,10 +374,17 @@ body:not(.minimal-line-nums) .markdown-source-view.is-readable-line-width:is(.le
     vertical-align: baseline;
 }
 
-/* positioning part */
+
+/* ===== 定位（sidenote + stickynote + aside 统一） ===== */
 
 .markdown-preview-view, .markdown-source-view {
-    .sidenote-r, .callout[data-callout="sidenote-r"] {
+    /* 右侧 */
+    :is(
+        .sidenote-r,
+        .callout[data-callout="sidenote-r"],
+        .callout[data-callout="stickynote-r"],
+        .callout[data-callout-metadata~="aside-r"]
+    ) {
         position: relative;
         float: right;
         clear: right;
@@ -358,7 +398,13 @@ body:not(.minimal-line-nums) .markdown-source-view.is-readable-line-width:is(.le
         }
     }
 
-    .sidenote-l, .callout[data-callout="sidenote-l"] {
+    /* 左侧 */
+    :is(
+        .sidenote-l,
+        .callout[data-callout="sidenote-l"],
+        .callout[data-callout="stickynote-l"],
+        .callout[data-callout-metadata~="aside-l"]
+    ) {
         position: relative;
         float: left;
         clear: left;
@@ -372,92 +418,13 @@ body:not(.minimal-line-nums) .markdown-source-view.is-readable-line-width:is(.le
         }
     }
 
-    .sidenote, .callout[data-callout="sidenote"] {
-        position: relative;
-        float: var(--sidenote-default-position);
-        clear: var(--sidenote-default-position);
-        @container not style(--sidenote-edgeout) {
-            width: var(--sidenote-width);
-            @container style(--sidenote-default-position: right) {
-                margin-inline: var(--sidenote-margins-r-non-intrusive);
-            }
-            @container style(--sidenote-default-position: left) {
-                margin-inline: var(--sidenote-margins-l-non-intrusive);
-            }
-        }
-        @container style(--sidenote-edgeout) {
-            max-width: var(--sidenote-width);
-            @container style(--sidenote-default-position: right) {
-                margin-inline: var(--sidenote-margins-r-intrusive);
-            }
-            @container style(--sidenote-default-position: left) {
-                margin-inline: var(--sidenote-margins-l-intrusive);
-            }
-        }
-    }
-}
-
-.callout[data-callout|="stickynote"] {
-    .callout-title {
-        display: none;
-    }
-    --p-spacing: 0;
-    margin-block: 0;
-}
-.cm-callout:has(
-    .callout[data-callout|="stickynote"],
-    .callout[data-callout-metadata~="aside"], .callout[data-callout-metadata~="aside-r"], .callout[data-callout-metadata~="aside-l"]
-) > .edit-block-button {
-    display: none;
-}
-/* need higher specificity to override obsidian app's !important property */
-.markdown-source-view.mod-cm6 .cm-content > .cm-callout[contenteditable=false]:has(
-    .callout[data-callout|="stickynote"],
-    .callout[data-callout-metadata~="aside"], .callout[data-callout-metadata~="aside-r"], .callout[data-callout-metadata~="aside-l"]
-) {
-    overflow: visible;
-    contain: none !important;
-}
-/* extra shift in Live Preview mode due to callouts syntax requiring an extra empty line */
-.markdown-source-view :is(
-    .callout[data-callout|="stickynote"],
-    .callout[data-callout-metadata~="aside"], .callout[data-callout-metadata~="aside-r"], .callout[data-callout-metadata~="aside-l"]
-) {
-    margin-top: 2.1em;
-}
-
-/* positioning part */
-
-.markdown-preview-view, .markdown-source-view {
-    .callout[data-callout="stickynote-r"], .callout[data-callout-metadata~="aside-r"] {
-        position: relative;
-        float: right;
-        clear: right;
-        @container not style(--sidenote-edgeout) {
-            width: var(--sidenote-width);
-            margin-inline: var(--sidenote-margins-r-non-intrusive);
-        }
-        @container style(--sidenote-edgeout) {
-            max-width: var(--sidenote-width);
-            margin-inline: var(--sidenote-margins-r-intrusive);
-        }
-    }
-
-    .callout[data-callout="stickynote-l"], .callout[data-callout-metadata~="aside-l"] {
-        position: relative;
-        float: left;
-        clear: left;
-        @container not style(--sidenote-edgeout) {
-            width: var(--sidenote-width);
-            margin-inline: var(--sidenote-margins-l-non-intrusive);
-        }
-        @container style(--sidenote-edgeout) {
-            max-width: var(--sidenote-width);
-            margin-inline: var(--sidenote-margins-l-intrusive);
-        }
-    }
-
-    .callout[data-callout="stickynote"], .callout[data-callout-metadata~="aside"] {
+    /* 默认方向 */
+    :is(
+        .sidenote,
+        .callout[data-callout="sidenote"],
+        .callout[data-callout="stickynote"],
+        .callout[data-callout-metadata~="aside"]
+    ) {
         position: relative;
         float: var(--sidenote-default-position);
         clear: var(--sidenote-default-position);

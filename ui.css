@@ -37,8 +37,7 @@ body .mod-root .workspace-tab-header-container-inner {
 body .mod-root div.workspace-tabs:not(.mod-stacked) .workspace-tab-header {
     box-shadow: none !important;
     --tab-radius-active: 6px;
-    box-shadow: var(--shadow-s);
-    margin: 0px 2px 0px 2px;
+    margin: 0 2px;
     border: 1px solid var(--color-base-30);
     padding: 1px 0px 0px 0px;
 }
@@ -133,9 +132,6 @@ body h1 {
 /* Canvas 定制 */
 
 /* remove canvas block line number */
-body > div > div > div.cm-scroller.cm-vimMode > div.cm-sizer > div > div.cm-gutters {
-    display: none !important;
-}
 body > div > div > div.cm-scroller > div.cm-sizer > div > div.cm-gutters {
     display: none !important;
 }

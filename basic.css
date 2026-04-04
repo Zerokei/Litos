@@ -1,16 +1,13 @@
+/* ===== 主题颜色 ===== */
 
 .theme-light,
-[saved-theme=light]  /* for Quartz */
-{
-  /* 强调色 */
+[saved-theme=light] /* for Quartz */ {
   --accent-h: 31;
   --accent-s: 95%;
   --accent-l: 60%;
-  /* 背景色 */
   --background-primary: #ffffff;
   --background-secondary: #f8f8f8;
   --background-secondary-alt: #ffffff;
-
   --border-color: #bbb;
   --link-color: #333;
   --link-color-hover: #888;
@@ -18,9 +15,7 @@
 }
 
 .theme-dark,
-[saved-theme=dark]  /* for Quartz */
-{
-  /* 强调色 */
+[saved-theme=dark] /* for Quartz */ {
   --accent-h: 190;
   --accent-s: 95%;
   --accent-l: 60%;
@@ -30,7 +25,8 @@
   --border-color: #bbb;
 }
 
-/* 全局变量设置 */
+/* ===== 全局变量 ===== */
+
 body {
   --radius-s: 4px;
   /* 标题 */
@@ -39,91 +35,89 @@ body {
   --h3-size: 1.25em;
   --h4-size: 1.00em;
   /* 列表 */
-  --list-indent: 2em; /* 列表缩进 */
-  --list-spacing: 0.1em; /* 列表间距 */
-  /* 字体设置 */
+  --list-indent: 2em;
+  --list-spacing: 0.1em;
+  /* 字体 */
   --font-text: 'LXGW Bright', 'JetBrains Mono', 'LXGW WenKai Screen', '霞鹜文楷 屏幕阅读版';
   --font-monospace: 'JetBrains Mono', 'LXGW WenKai Screen', '霞鹜文楷 屏幕阅读版';
   --font-quote: 'Source Serif 4', 'STKaiti';
   --font-accent: 'Source Serif 4', 'Source Han Serif SC';
   /* 链接 */
   --link-unresolved-filter: opacity(50%);
-  /* 代码 */
-  --inline-code-weight: 400;
-  --block-code-weight: 300;
-
   --external-link-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Cg fill='none' stroke-width='2' stroke-linecap='round' stroke='grey' %3E%3Cpath d='M18.668 13.332l-5.336 5.336' stroke-linejoin='round' stroke-width='2'/%3E%3Cpath d='M21.332 17.332L24 14.668A4.718 4.718 0 0 0 24 8a4.718 4.718 0 0 0-6.668 0l-2.664 2.668m-4 4L8 17.332A4.718 4.718 0 0 0 8 24a4.718 4.718 0 0 0 6.668 0l2.664-2.668' stroke-width='2.66666'/%3E%3C/g%3E%3C/svg%3E");
   --dblp-link-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' id='dblp'%3E%3Cpath fill='%232E7FCA' d='m11.969 7.81-.616-2.28.616 2.28zM5.754 10.365a.733.733 0 0 1-.333-.441l-.607-2.279-1.916.898a.734.734 0 0 0-.398.853l2.44 9.151a.734.734 0 0 0 1.019.476l6.073-2.833-.67-2.48-5.608-3.345zm5.599-4.835-.151-.558a.737.737 0 0 0-.331-.438L3.386.049a.336.336 0 0 0-.497.374l1.925 7.221 5.519-2.588a.736.736 0 0 1 1.02.474z'%3E%3C/path%3E%3Cpath fill='%230A4DA5' d='m5.754 10.365 5.606 3.345-1.187-4.392a.734.734 0 0 1 .398-.856l1.397-.652-.615-2.28a.734.734 0 0 0-1.019-.473l-5.52 2.588.608 2.279a.734.734 0 0 0 .332.441z'%3E%3C/path%3E%3Cpath fill='%232E7FCA' d='m12.031 16.19.616 2.28-.616-2.28z'%3E%3C/path%3E%3Cpath fill='%23FDD700' d='m21.5 14.604-2.44-9.151a.734.734 0 0 0-1.019-.476L11.969 7.81l.67 2.48 5.606 3.345a.733.733 0 0 1 .333.441l.608 2.279 1.917-.899a.733.733 0 0 0 .397-.852z'%3E%3C/path%3E%3Cpath fill='%232E7FCA' d='m11.361 13.71.67 2.48zM12.639 10.29l-.67-2.48z'%3E%3C/path%3E%3Cpath fill='%2345681B' d='m11.569 9.652 1.07.638-.67-2.48-1.397.652a.734.734 0 0 0-.398.856l1.187 4.392-.875-3.237a.733.733 0 0 1 1.083-.821z'%3E%3C/path%3E%3Cpath fill='%23FDD700' d='m12.647 18.47.151.558c.05.183.168.34.331.438l7.485 4.485a.336.336 0 0 0 .497-.375l-1.925-7.221-5.519 2.588a.735.735 0 0 1-1.02-.473z'%3E%3C/path%3E%3Cpath fill='%23F9BC00' d='M18.246 13.635 12.64 10.29l1.187 4.392a.734.734 0 0 1-.398.856l-1.397.652.616 2.281a.734.734 0 0 0 1.019.473l5.519-2.588-.608-2.279a.733.733 0 0 0-.332-.442z'%3E%3C/path%3E%3Cpath fill='%235A7F19' d='M13.514 13.527a.734.734 0 0 1-1.084.821l-1.07-.638.67 2.48 1.397-.652a.734.734 0 0 0 .398-.856l-1.187-4.392.876 3.237z'%3E%3C/path%3E%3Cpath fill='%232B5A20' d='m13.514 13.527-.875-3.237-1.07-.638a.734.734 0 0 0-1.084.821l.875 3.237 1.07.638a.733.733 0 0 0 1.084-.821z'%3E%3C/path%3E%3C/svg%3E");
   --external-link-icon-position: center left;
   --external-link-icon-position-y: 0.06em;
   --external-link-icon-size: 1.1em;
   --external-link-padding-right: 1.25em;
-
+  /* 代码 */
+  --inline-code-weight: 400;
+  --block-code-weight: 300;
+  /* 其他 */
   --blockquote-border-thickness: 0px;
   --callout-radius: 4px;
+  --tab-stacked-pane-width: 100%;
+  /* 链接下划线 text-shadow（防止中文字体覆盖下划线） */
+  --link-text-shadow:
+     0      0.01em var(--background-primary),
+     0.05em 0.01em var(--background-primary),
+    -0.05em 0.01em var(--background-primary),
+     0.10em 0.01em var(--background-primary),
+    -0.10em 0.01em var(--background-primary),
+     0.15em 0.01em var(--background-primary),
+    -0.15em 0.01em var(--background-primary),
+     0.20em 0.01em var(--background-primary),
+    -0.20em 0.01em var(--background-primary);
 }
 
-/* 圆角设置 */
+/* ===== 圆角 ===== */
+
 .search-result-file-match {
-  border-radius: --radius-s;
+  border-radius: var(--radius-s);
 }
 
-/* 设置 h1 标题左侧空白 */
+/* ===== 标题样式 ===== */
+
+/* h1 标题左侧空白 */
 div.markdown-reading-view h1 span.custom-heading-count {
   padding-right: 0 !important;
 }
 
-/* 设置 headings 样式 */
-.markdown-rendered h1, .HyperMD-header-1{
-  /* 居中 */
-  text-align: center;
-  /* 字体 */
-  font-family: var(--font-accent) !important;
-}
-.markdown-rendered h2, .HyperMD-header-2 {
-  margin-top: 2.5rem;
-  /* 居右 */
-  text-align: right;
-  /* 标题下划线 */
-  letter-spacing: -0.75px;
-  border-bottom: 1px solid var(--border-color);
-  line-height: 1;
-  /* 字体设置 */
-  font-family: var(--font-accent) !important;
-}
-.markdown-rendered h3, .HyperMD-header-3 {
-  /* 标题下划线 */
-  letter-spacing: -0.75px;
-  border-bottom: 1px solid var(--border-color);
-  line-height: 1;
-  /* 字体设置 */
-  font-family: var(--font-accent) !important;
-}
-.markdown-rendered h4, .HyperMD-header-4 {
-  /* 字体 */
+/* 所有标题使用 accent 字体 */
+:is(.markdown-rendered :is(h1, h2, h3, h4), .HyperMD-header-1, .HyperMD-header-2, .HyperMD-header-3, .HyperMD-header-4) {
   font-family: var(--font-accent) !important;
 }
 
-.markdown-rendered div:has( > :is(p,pre,table,ul,ol)) + div > :is(h3, h4) {
+/* h1 居中 */
+.markdown-rendered h1, .HyperMD-header-1 {
+  text-align: center;
+}
+
+/* h2/h3 下划线 */
+:is(.markdown-rendered :is(h2, h3), .HyperMD-header-2, .HyperMD-header-3) {
+  letter-spacing: -0.75px;
+  border-bottom: 1px solid var(--border-color);
+  line-height: 1;
+}
+
+/* h2 居右 */
+.markdown-rendered h2, .HyperMD-header-2 {
+  margin-top: 2.5rem;
+  text-align: right;
+}
+
+/* h3/h4 上方间距 */
+.markdown-rendered div:has(> :is(p, pre, table, ul, ol)) + div > :is(h3, h4) {
   margin-top: 1rem;
 }
 
-/* callout checkbox 对齐问题 */
+/* callout checkbox 对齐 */
 div.cm-callout div.callout-content ul.contains-task-list {
   padding-inline-start: 0em;
 }
 
 
-/*** 链接样式 ***/
-
-span.cm-link:hover,
-span.cm-url:hover,
-span.cm-hmd-internal-link:hover,
-a:hover{
-  color: var(--link-color-hover) !important;
-  text-decoration: none !important;
-  text-decoration-line: none !important;
-}
+/* ===== 链接样式 ===== */
 
 span.cm-link,
 span.cm-url,
@@ -131,15 +125,20 @@ span.cm-hmd-internal-link,
 a {
   color: var(--link-color) !important;
   text-decoration: none !important;
-  text-decoration-line: none !important;
 }
 
-/* 特殊外链-纯链接(http, https 样式设置) */
+span.cm-link:hover,
+span.cm-url:hover,
+span.cm-hmd-internal-link:hover,
+a:hover {
+  color: var(--link-color-hover) !important;
+  text-decoration: none !important;
+}
+
+/* 纯链接（http/https，无 label） */
 span.cm-url > a,
 a.external-link:not([aria-label]),
-a.external:not([aria-label])  /*for Quartz*/
-{  
-  /* 自动图标设置 */
+a.external:not([aria-label]) /* for Quartz */ {
   font-family: var(--font-monospace);
   font-weight: 200;
   font-size: 80%;
@@ -151,34 +150,28 @@ a.external:not([aria-label])  /*for Quartz*/
   background-image: var(--external-link-icon);
 }
 
-/* []() 外链样式设置 */
-span.cm-link > a,
-a.external-link[aria-label] {
-  color: var(--color-base-100);
-  font-family: var(--font-text);
-  font-weight: normal;
-  font-size: 100%;
-  text-shadow: 
-              0      0.01em var(--background-primary),
-              0.05em 0.01em var(--background-primary),
-             -0.05em 0.01em var(--background-primary),
-              0.10em 0.01em var(--background-primary),
-             -0.10em 0.01em var(--background-primary),
-              0.15em 0.01em var(--background-primary),
-             -0.15em 0.01em var(--background-primary),
-              0.20em 0.01em var(--background-primary),
-             -0.20em 0.01em var(--background-primary);
-
+/* 链接下划线效果（外链 + 内链共用） */
+:is(span.cm-link > a, a.external-link[aria-label], span.cm-hmd-internal-link > a, a.internal-link) {
+  text-shadow: var(--link-text-shadow);
   background-image: linear-gradient(currentColor, currentColor);
   background-size: 1px 1px;
   background-repeat: repeat-x;
   background-position: 0% calc(100% - 0.1em);
 }
 
-/* DBLP 链接设置 */
+/* 有 label 的外链 */
+span.cm-link > a,
+a.external-link[aria-label] {
+  color: var(--color-base-100);
+  font-family: var(--font-text);
+  font-weight: normal;
+  font-size: 100%;
+}
+
+/* DBLP 链接 */
 /* HACK 只设置了 Reading Mode */
 a.external-link[href^="https://dblp.org"] {
-  margin-left: 0.3em; /* NOTE 设置间距 */
+  margin-left: 0.3em;
   overflow: hidden;
   padding-left: var(--external-link-padding-right);
   background-repeat: no-repeat;
@@ -188,39 +181,22 @@ a.external-link[href^="https://dblp.org"] {
   background-image: var(--dblp-link-icon);
 }
 
-
-/* 内链样式设置 */
+/* 内链样式 */
 span.cm-hmd-internal-link > a,
 a.internal-link {
   color: currentColor;
   position: relative;
- 
-  /* NOTE 0.01 为了防止下划线上方的中文字体覆盖下划线 */
-  text-shadow: 
-              0      0.01em var(--background-primary),
-              0.05em 0.01em var(--background-primary),
-             -0.05em 0.01em var(--background-primary),
-              0.10em 0.01em var(--background-primary),
-             -0.10em 0.01em var(--background-primary),
-              0.15em 0.01em var(--background-primary),
-             -0.15em 0.01em var(--background-primary),
-              0.20em 0.01em var(--background-primary),
-             -0.20em 0.01em var(--background-primary);
-
   padding-left: 0.3em;
-  background-image: linear-gradient(currentColor, currentColor);
-  background-size: 1px 1px;
-  background-repeat: repeat-x;
-  background-position: 0% calc(100% - 0.1em);
 }
+
+/* 内链竖线装饰 */
 span.cm-hmd-internal-link > a::before,
 a.internal-link::before {
   content: "";
   position: absolute;
-  inset: 0 0 0 0;
+  inset: 0;
   width: 1px;
   height: 1.2em;
-
   background-image: linear-gradient(var(--background-primary), var(--background-primary)),
                     linear-gradient(var(--background-primary), var(--background-primary)),
                     linear-gradient(currentColor, currentColor);
@@ -238,50 +214,57 @@ a.internal-link::before {
   background-image: var(--internal-link-icon);
 }
 
-/* NOTE 链接在 Callout 里的样式修正 */
+/* 链接在 Callout 里的样式修正 */
 .callout-title-inner > a.external-link[aria-label] {
   color: var(--callout-title-color) !important;
   background-image: none;
   padding-left: 0;
 }
+
 /* 取消普通外链默认图标 */
 .external-link {
-  /* background-image: none; */
   padding-right: 0px;
 }
 
 
-/* Mathjax 修复 */
+/* ===== Mathjax 修复 ===== */
+
 mjx-stretchy-h > mjx-ext {
   font-weight: 600;
 }
 
-/* code 设置 */
-:is(h2,h3,h4) code,
+
+/* ===== 代码样式 ===== */
+
+:is(h2, h3, h4) code,
 .cm-s-obsidian span.cm-inline-code,
 .markdown-rendered p code,
-.markdown-rendered :is(ul,ol) code {
+.markdown-rendered :is(ul, ol) code {
   color: var(--color-accent-2);
   font-weight: var(--inline-code-weight);
 }
-.callout-title-inner code{
+
+.callout-title-inner code {
   color: var(--callout-title-color);
   font-weight: var(--inline-code-weight);
 }
+
 span.cm-hmd-codeblock,
 code {
   font-weight: var(--block-code-weight);
 }
 
-/* mark 高亮背景设置 */
-/*荧光笔高亮 by: Lemonadio*/
-/*写着写着就能用了,就不改代码了.*/
-.cm-s-obsidian span.cm-formatting-highlight, .cm-s-obsidian span.cm-highlight,
-:is(.markdown-preview-view,.markdown-rendered) mark {
+
+/* ===== 高亮样式 ===== */
+
+/* 荧光笔高亮 by: Lemonadio */
+.cm-s-obsidian span.cm-formatting-highlight,
+.cm-s-obsidian span.cm-highlight,
+:is(.markdown-preview-view, .markdown-rendered) mark {
   display: inline;
   box-sizing: border-box;
   background-color: inherit;
-  background-image: linear-gradient(rgba(255,208,0,0.5),rgba(255,208,0,0.5));
+  background-image: linear-gradient(rgba(255, 208, 0, 0.5), rgba(255, 208, 0, 0.5));
   background-repeat: no-repeat;
   background-size: 100% 50%;
   background-position: 100% 53%;
@@ -289,19 +272,14 @@ code {
   padding: 0 0.2em;
 }
 
-/* tab 栏宽度设置 */
-body {
-  --tab-stacked-pane-width: 100%;
-}
 
-/* <blockquote> 样式设置 */
-div.el-blockquote > blockquote, /*for Obsidian*/
-blockquote:not(.callout)       /*for Quartz*/
- {
+/* ===== 引用样式 ===== */
+
+div.el-blockquote > blockquote, /* for Obsidian */
+blockquote:not(.callout)        /* for Quartz */ {
   display: flow-root;
   margin: 1em 0;
   padding: 0.75em 2.5em !important;
-  /* 取消左侧的高亮渲染 */
   border-inline-start: none;
 }
 
@@ -311,7 +289,6 @@ blockquote:not(.callout)       /*for Quartz*/
 }
 
 blockquote > p {
-  /* 显示规则 */
   padding: 0;
   border: none;
   position: relative;
@@ -320,7 +297,6 @@ blockquote > p {
   margin: auto;
   display: flow-root;
   line-height: 1.5;
-  /* 字体样式 */
   font-family: var(--font-quote);
   font-size: 0.9rem;
 }
@@ -334,6 +310,7 @@ blockquote > p::before {
   display: block;
   position: absolute;
 }
+
 blockquote > p::after {
   content: "\201D";
   right: -1em;
@@ -344,7 +321,6 @@ blockquote > p::after {
   position: absolute;
 }
 
-/* <cite> 样式设置 */
 cite {
   font-size: 80%;
   font-family: var(--font-quote);
@@ -353,7 +329,9 @@ cite {
   display: block;
 }
 
-/* <kdb> 样式设置 */
+
+/* ===== kbd 样式 ===== */
+
 kbd {
   font-family: 'Courier Prime', Courier, monospace;
   font-weight: 500;

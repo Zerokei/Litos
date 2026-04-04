@@ -2,8 +2,7 @@
 div.frontmatter-section {
   display: none !important;
 }
-.frontmatter-section.mod-aliases,
-.frontmatter-section.mod-tags {
+.frontmatter-section:is(.mod-aliases, .mod-tags) {
   display: flex !important;
 }
 .frontmatter-container-header {

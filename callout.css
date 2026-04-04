@@ -1,14 +1,17 @@
-/* Callout */
+/* ===== Callout 基础样式 ===== */
+
 .callout {
   font-size: 0.9rem;
   font-family: var(--font-text);
   border: 1px solid;
 }
+
 .callout-icon svg {
   width: 105%;
   margin-right: 2px;
   margin-top: 2px;
 }
+
 div .markdown-rendered .show-indentation-guide {
   padding: 0px;
 }
@@ -19,122 +22,137 @@ div.HyperMD-callout,
   font-weight: 500;
 }
 
-body .callout[data-callout-metadata*=revert] {
-  padding: 0px;
-}
-body .callout[data-callout-metadata*=revert] > .callout-content {
-  padding: 0 8px 8px 8px;
-}
-body .callout[data-callout-metadata*=revert] > .callout-title {
-  background-color: transparent !important;
-  padding: 8px 8px 8px 8px;
-  cursor: pointer;
-}
-body .callout[data-callout-metadata*=revert] > .callout-title .callout-title-inner {
-  font-weight: normal;
-}
-body .callout:not([data-callout-metadata*=revert]):not([data-callout=blank-container], [data-callout=multi-column]):not(.is-collapsible) {
-  border-color: rgba(var(--callout-color), 0.4);
-  border-width: 1px;
-  border-radius: var(--callout-radius);
-  background-color: rgba(var(--ctp-mantle), 0.4);
-}
-body .callout:not([data-callout-metadata*=revert]):not([data-callout=blank-container], [data-callout=multi-column]) > .callout-content {
-  padding: 8px 8px 8px 8px;
-  /* border-top: 1px dashed rgba(var(--callout-color), 0.4); */
-}
-body .callout:not([data-callout-metadata*=revert]):not([data-callout=blank-container], [data-callout=multi-column]) > .callout-title .callout-fold {
-  padding-right: 0px;
-}
-body .callout:not([data-callout-metadata*=revert]):not([data-callout=blank-container], [data-callout=multi-column]).is-collapsible {
-  border-color: rgba(var(--callout-color), 0.4);
-  border-width: 1px;
-  border-radius: var(--callout-radius);
-  background-color: rgba(var(--ctp-mantle), 0.4);
-  --bold-weight: bolder;
-}
-body .callout:not([data-callout-metadata*=revert]):not([data-callout=blank-container], [data-callout=multi-column]).is-collapsible * > .callout-title > .callout-fold {
-  padding-right: 0px;
-}
-body .callout:not([data-callout-metadata*=revert]):not([data-callout=blank-container], [data-callout=multi-column]).is-collapsible * > .callout-title > .callout-title-inner {
-  flex-grow: var(--anp-callout-fold-position, unset);
-}
-
-
-/* NOTE callout 可折叠且已折叠 */
-body .callout:not([data-callout-metadata*=revert]):not([data-callout=blank-container], [data-callout=multi-column]).is-collapsible.is-collapsed {
-  padding: 0;
-}
-body .callout:not([data-callout-metadata*=revert]):not([data-callout=blank-container], [data-callout=multi-column]).is-collapsible.is-collapsed > .callout-title {
-  background-color: rgba(var(--callout-color), 0.1);
-  padding: 8px 8px 8px 8px;
-  cursor: pointer;
-}
-
-/* NOTE callout 可折叠但未折叠 */
-body .callout:not([data-callout-metadata*=revert]):not([data-callout=blank-container], [data-callout=multi-column]).is-collapsible:not(.is-collapsed) {
-  padding: 0px 0px 4px 0px;
-}
-body .callout:not([data-callout-metadata*=revert]):not([data-callout=blank-container], [data-callout=multi-column]).is-collapsible:not(.is-collapsed) > .callout-title {
-  background-color: rgba(var(--callout-color), 0.1);
-  padding: 8px 8px 0px 8px;
-  border-color: rgba(var(--callout-color), 0.4);
-  cursor: pointer;
-}
-body .callout:not([data-callout-metadata*=revert]):not([data-callout=blank-container], [data-callout=multi-column]).is-collapsible:not(.is-collapsed) > .callout-content {
-  padding: 8px 8px 8px 8px;
-  /* border-top: 1px dashed rgba(var(--callout-color), 0.4); */
-}
-
-/* NOTE callout 不可折叠 */
-body .callout:not([data-callout-metadata*=revert]):not([data-callout=blank-container], [data-callout=multi-column]):not(.is-collapsible) {
-  padding: 0;
-}
-body .callout:not([data-callout-metadata*=revert]):not([data-callout=blank-container], [data-callout=multi-column]):not(.is-collapsible) > .callout-title {
-  background-color: rgba(var(--callout-color), 0.1);
-  padding: 8px 8px 0px 8px;
-  border-color: rgba(var(--callout-color), 0.4);
-}
-body .callout:not([data-callout-metadata*=revert]):not([data-callout=blank-container], [data-callout=multi-column]) .list-collapse-indicator {
-  margin-left: -35px;
-  padding-right: 3px;
-}
-
-.callout-content > p:first-child, .callout-content > ul:first-child, .callout-content > ol:first-child {
-  margin-top: 0px;
-}
-.callout-content > p:last-child, .callout-content > ul:last-child, .callout-content > ol:last-child {
-  margin-bottom: 0px;
-}
-
 .callout-title-inner {
   flex-grow: 1;
 }
 
-/* 分割线 hr 设置 */
+.callout-content > :is(p, ul, ol):first-child {
+  margin-top: 0px;
+}
+.callout-content > :is(p, ul, ol):last-child {
+  margin-bottom: 0px;
+}
+
+/* 分割线 */
 .callout-content > hr {
   margin: 1em;
 }
 
-/* 设置引用类 callout 的字体 */
-[data-callout=cite], [data-callout=quote], [data-callout=bible] {
-  font-family: var(--font-quote);
+
+/* ===== revert 模式 ===== */
+
+body .callout[data-callout-metadata*=revert] {
+  padding: 0px;
+
+  & > .callout-content {
+    padding: 0 8px 8px 8px;
+  }
+  & > .callout-title {
+    background-color: transparent !important;
+    padding: 8px;
+    cursor: pointer;
+
+    & .callout-title-inner {
+      font-weight: normal;
+    }
+  }
 }
 
-/* callout title 修饰 */
-.HyperMD-callout, 
+
+/* ===== 标准 callout（非 revert、非 blank-container、非 multi-column）===== */
+
+body .callout:not([data-callout-metadata*=revert]):not([data-callout=blank-container], [data-callout=multi-column]) {
+  border-color: rgba(var(--callout-color), 0.4);
+  border-width: 1px;
+  border-radius: var(--callout-radius);
+  background-color: rgba(var(--ctp-mantle), 0.4);
+
+  & > .callout-content {
+    padding: 8px;
+  }
+  & > .callout-title .callout-fold {
+    padding-right: 0px;
+  }
+  & .list-collapse-indicator {
+    margin-left: -35px;
+    padding-right: 3px;
+  }
+
+  /* 可折叠 */
+  &.is-collapsible {
+    --bold-weight: bolder;
+
+    & * > .callout-title > .callout-fold {
+      padding-right: 0px;
+    }
+    & * > .callout-title > .callout-title-inner {
+      flex-grow: var(--anp-callout-fold-position, unset);
+    }
+
+    /* 已折叠 */
+    &.is-collapsed {
+      padding: 0;
+
+      & > .callout-title {
+        background-color: rgba(var(--callout-color), 0.1);
+        padding: 8px;
+        cursor: pointer;
+      }
+    }
+
+    /* 未折叠 */
+    &:not(.is-collapsed) {
+      padding: 0px 0px 4px 0px;
+
+      & > .callout-title {
+        background-color: rgba(var(--callout-color), 0.1);
+        padding: 8px 8px 0px 8px;
+        border-color: rgba(var(--callout-color), 0.4);
+        cursor: pointer;
+      }
+      & > .callout-content {
+        padding: 8px;
+      }
+    }
+  }
+
+  /* 不可折叠 */
+  &:not(.is-collapsible) {
+    padding: 0;
+
+    & > .callout-title {
+      background-color: rgba(var(--callout-color), 0.1);
+      padding: 8px 8px 0px 8px;
+      border-color: rgba(var(--callout-color), 0.4);
+    }
+  }
+}
+
+
+/* ===== callout title 修饰 ===== */
+
+.HyperMD-callout,
 .callout > .callout-title {
   background-color: inherit !important;
   text-align: right;
   font-family: var(--font-accent);
 }
 
-/* callout abstract 样式定制 */
-[data-callout=abstract] > .callout-title
-{
+
+/* ===== 引用类 callout ===== */
+
+:is([data-callout=cite], [data-callout=quote], [data-callout=bible]) {
+  font-family: var(--font-quote);
+}
+
+
+/* ===== abstract callout ===== */
+
+[data-callout=abstract] > .callout-title {
   display: none;
 }
-div[data-callout=abstract], .callout[data-callout=abstract] {
+
+:is(div, .callout)[data-callout=abstract] {
   font-family: var(--font-accent) !important;
   background-color: var(--background-secondary) !important;
   border-color: var(--border-color) !important;

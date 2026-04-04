@@ -1,18 +1,10 @@
 /* 表格居中 */
-.markdown-preview-view table {
-  margin-left: auto;
-  margin-right: auto;
-  margin-top: 1em;
-  margin-bottom: 1em;
-}
+.markdown-preview-view table,
 div.table-wrapper {
-  margin-left: auto;
-  margin-right: auto;
-  margin-top: 1em;
-  margin-bottom: 1em;
+  margin: 1em auto;
 }
 
 /* 预览模式设置 */
 div.table-wrapper div.cm-scroller {
-  padding-top: 0px !important;
+  padding-top: 0 !important;
 }
