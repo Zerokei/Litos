@@ -1,23 +1,61 @@
-# My Obsidian CSS Snippets
+# Litos — Obsidian Theme
 
-Apply to the default obsidian theme.
+A modular Obsidian theme with academic aesthetics, Tufte-style sidenotes, and CJK font support.
 
 ## Getting Started
 
+### As a Theme (recommended)
 
-```css
-# .obsidian/snippets/ZeroSnippets.css
-@import url("https://zerokei.github.io/ObsidianSnippets/basic.css");
-@import url("https://zerokei.github.io/ObsidianSnippets/callout.css");
-@import url("https://zerokei.github.io/ObsidianSnippets/checkbox.css");
-@import url("https://zerokei.github.io/ObsidianSnippets/mermaid.css");
-@import url("https://zerokei.github.io/ObsidianSnippets/yaml.css");
-@import url("https://zerokei.github.io/ObsidianSnippets/digital-garden.css");
-@import url("https://zerokei.github.io/ObsidianSnippets/ui.css");
-@import url("https://zerokei.github.io/ObsidianSnippets/sidenote.css");
+Clone or symlink this repo into your vault's theme directory:
+
+```bash
+# Clone
+git clone https://github.com/zerokei/ObsidianSnippets \
+  <vault>/.obsidian/themes/Litos
+
+# Or symlink
+ln -s /path/to/ObsidianSnippets <vault>/.obsidian/themes/Litos
 ```
 
-Open Obsidian > Settings > Appearance > CSS Snippets and enable it.
+Then enable in **Settings > Appearance > Themes > Litos**.
+
+### As a CSS Snippet (via CDN)
+
+```css
+/* .obsidian/snippets/LitosSnippets.css */
+@import url("https://zerokei.github.io/ObsidianSnippets/css/basic.css");
+@import url("https://zerokei.github.io/ObsidianSnippets/css/callout.css");
+@import url("https://zerokei.github.io/ObsidianSnippets/css/checkbox.css");
+@import url("https://zerokei.github.io/ObsidianSnippets/css/mermaid.css");
+@import url("https://zerokei.github.io/ObsidianSnippets/css/yaml.css");
+@import url("https://zerokei.github.io/ObsidianSnippets/css/ui.css");
+@import url("https://zerokei.github.io/ObsidianSnippets/css/sidenote.css");
+```
+
+Enable in **Settings > Appearance > CSS Snippets**.
+
+## Structure
+
+```
+├── manifest.json            # Theme metadata
+├── theme.css                # Entry point (imports all modules)
+├── css/                     # Theme CSS modules
+│   ├── basic.css            # Colors, typography, headings, links, code, highlights, blockquotes
+│   ├── callout.css          # Callout styling and custom types
+│   ├── checkbox.css         # Custom checkbox states (done, cancelled, question, in-progress)
+│   ├── mermaid.css          # Mermaid diagram styling
+│   ├── table.css            # Table centering and layout
+│   ├── ui.css               # Workspace, tabs, ribbon, status bar, metadata
+│   ├── sidenote.css         # Tufte-style responsive sidenotes
+│   └── yaml.css             # Frontmatter display control
+├── quartz/                  # Quartz static site specific (not part of theme)
+│   ├── digital-garden.css
+│   └── license.css
+└── .claude/skills/          # Claude Code project-level skill
+    └── obsidian-theme/
+        ├── SKILL.md
+        └── references/
+```
 
 ## Fonts
 
