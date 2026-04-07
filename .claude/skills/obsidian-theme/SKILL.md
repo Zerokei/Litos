@@ -1,13 +1,12 @@
 ---
 name: obsidian-theme
 description: >
-  Develop and customize Obsidian themes and CSS snippets. Use this skill whenever the user wants to
-  change how Obsidian looks — styling headings, callouts, sidebars, tabs, fonts, colors, checkboxes,
-  tables, code blocks, links, tags, or any other visual element. Also use when the user mentions
-  Obsidian CSS, theme development, CSS snippets, CSS variables, Style Settings, dark/light mode
-  styling, or wants to inspect/debug Obsidian's appearance. Even if the user just says something
-  like "make my headings bigger" or "change the background color" in the context of an Obsidian
-  vault, this skill applies.
+  Develop and customize Obsidian themes and CSS snippets.
+  TRIGGER when: editing theme.css or CSS files, user shows screenshots of Obsidian UI, user asks
+  about styling/appearance of any Obsidian element (headings, callouts, links, tables, checkboxes,
+  code blocks, tags, fonts, colors, spacing, sidebars, tabs), user mentions CSS variables/selectors,
+  or user asks to fix/debug visual issues in Obsidian.
+  DO NOT TRIGGER when: question is about Obsidian plugin JS/TS code or markdown content, not styling.
 ---
 
 # Obsidian Theme Development
