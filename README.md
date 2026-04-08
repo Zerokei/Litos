@@ -4,7 +4,7 @@
 
 An Obsidian theme with academic aesthetics, Tufte-style sidenotes, and CJK font support.
 
-![](screenshot.png)
+![](assets/screenshot-full.png)
 
 ## Features
 
