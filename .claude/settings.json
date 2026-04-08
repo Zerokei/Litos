@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(curl *)",
+      "Bash(gh *)",
+      "Bash(obsidian *)"
+    ]
+  }
+}

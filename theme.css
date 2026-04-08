@@ -353,6 +353,33 @@ cite {
 }
 
 
+/* ===== 图片居中 ===== */
+
+/* Reading mode: 独占一行的图片居中 */
+.markdown-preview-view p > img:only-child {
+  display: block;
+  margin: 0 auto;
+}
+
+.markdown-preview-view .image-embed:only-child {
+  display: block;
+  text-align: center;
+}
+
+/* Live Preview: 独立图片居中 (contenteditable 下 margin:auto 无效，用 transform) */
+.cm-content > .image-embed {
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+/* 通用: callout 内独占一行的图片居中 (两种模式 DOM 一致) */
+.callout-content > p > .image-embed:only-child {
+  display: block;
+  width: fit-content;
+  margin: 0 auto;
+}
+
 /* ===== kbd 样式 ===== */
 
 kbd {
