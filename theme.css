@@ -197,8 +197,6 @@ span.cm-hmd-internal-link > a,
 a.internal-link {
   color: currentColor;
   text-decoration: none;
-  position: relative;
-  padding-left: 0.15em;
   text-shadow: var(--link-text-shadow);
   background-image: linear-gradient(currentColor, currentColor);
   background-size: 1px 1px;
@@ -206,16 +204,16 @@ a.internal-link {
   background-position: 0% calc(100% - 0.1em);
 }
 
-/* 内链短竖线 */
+/* 内链短竖线（inline-block 避免跨行时竖线错位） */
 span.cm-hmd-internal-link > a::before,
 a.internal-link::before {
   content: "";
-  position: absolute;
-  left: 0;
-  bottom: 0.1em;
+  display: inline-block;
   width: 0;
-  height: 0.5em;
+  height: 0.6em;
   border-left: 1px solid currentColor;
+  vertical-align: -0.18em;
+  margin-right: 0.15em;
   pointer-events: none;
 }
 
