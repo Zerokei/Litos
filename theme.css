@@ -44,8 +44,8 @@ body {
   --list-indent: 2em;
   --list-spacing: 0.1em;
   /* 字体 */
-  --font-text-theme: 'LXGW Bright', 'JetBrains Mono', 'LXGW WenKai Screen', '霞鹜文楷 屏幕阅读版';
-  --font-monospace: 'JetBrains Mono', 'LXGW WenKai Screen', '霞鹜文楷 屏幕阅读版';
+  --font-text-theme: 'LXGW Bright', 'JetBrains Mono';
+  --font-monospace: 'JetBrains Mono';
   --font-quote: 'Source Serif 4', 'STKaiti';
   --font-accent: 'Source Serif 4', 'Source Han Serif SC';
   /* 链接 */
