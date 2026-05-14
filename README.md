@@ -45,6 +45,15 @@ This theme is designed with the following font stack. Install them for the best 
 | CJK Serif | [Source Han Serif SC](https://github.com/adobe-fonts/source-han-serif) |
 | Fallback Mono | [Courier Prime](https://fonts.google.com/specimen/Courier+Prime) |
 
+## Recommended Settings
+
+For the theme to look its best, adjust these under **Settings → Appearance**:
+
+| Setting | Value | Why |
+|---------|-------|-----|
+| Translucent window | **Off** | When on, the title bar uses a semi-transparent black that clashes with the theme background. |
+| Readable line length | **On** | Gives Tufte-style sidenotes room to sit fully in the margin; with it off they fall back to a narrower, intrusive layout. |
+
 ## Credits
 
 Inspired by:
