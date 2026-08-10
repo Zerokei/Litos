@@ -1,3 +1,6 @@
+
+</think>
+
 # Litos
 
 ![](cover.png)
@@ -32,6 +35,8 @@ git clone https://github.com/zerokei/Litos \
 ```
 
 Then enable in **Settings → Appearance → Themes → Litos**.
+
+*Requires Obsidian v1.0.0 or later.*
 
 ## Recommended Fonts
 
