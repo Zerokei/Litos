@@ -16,6 +16,8 @@ Litos works on its own. [Litos Companion](https://github.com/Zerokei/Litos-Compa
 
 ## Installation
 
+Requires Obsidian **1.13.7 or later**.
+
 ### From Community Themes
 
 1. Open **Settings → Appearance → Themes**

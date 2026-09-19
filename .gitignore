@@ -6,3 +6,6 @@ obsidian-theme-workspace/
 
 # Local showcase tooling and capture batches
 .cache/
+
+# Theme audit dependencies
+node_modules/
