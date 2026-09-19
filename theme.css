@@ -31,6 +31,15 @@
 /* ===== 全局变量 ===== */
 
 body {
+  /* Litos Companion: optional display controls and diagram palette. */
+  --litos-companion-api: 1;
+  --litos-h2-align: right;
+  --litos-diagram-surface: var(--background-primary);
+  --litos-diagram-node: var(--background-secondary);
+  --litos-diagram-text: var(--text-normal);
+  --litos-diagram-border: var(--background-modifier-border);
+  --litos-diagram-line: var(--text-muted);
+  --litos-diagram-label: var(--background-primary);
   --radius-s: 4px;
   /* 标题 */
   --h1-size: 2.00em;
@@ -103,10 +112,10 @@ body :is(.markdown-rendered :is(h1, h2, h3, h4), .HyperMD-header-1, .HyperMD-hea
   line-height: 1;
 }
 
-/* h2 居右 */
+/* h2 默认居右；Litos Companion 可通过变量调整。 */
 .markdown-rendered h2, .HyperMD-header-2 {
   margin-top: 2.5rem;
-  text-align: right;
+  text-align: var(--litos-h2-align, right);
 }
 
 /* h3/h4 上方间距 */
@@ -645,7 +654,7 @@ div.mermaid::after {
   bottom: 0;
 }
 
-body rect {
+body div.mermaid svg:not(.litos-companion-diagram) rect {
   stroke: var(--border-color);
   fill: transparent;
 }
@@ -673,7 +682,11 @@ body div.table-wrapper div.cm-scroller {
 /* 定制标签栏 */
 
 body:not(.is-fullscreen) :not(.mod-stacked) div.workspace-tabs.mod-top.mod-top-left-space .workspace-tab-header-container {
-    padding-left: 80px;
+    padding-left: 120px;
+}
+/* 全屏仍需为固定的左侧按钮预留位置。 */
+body.is-fullscreen:not(.is-mobile) .workspace-tabs.mod-top.mod-top-left-space > .workspace-tab-header-container {
+    padding-left: calc(var(--size-4-8) + var(--size-4-4));
 }
 body .workspace-tabs:not(.mod-stacked) > .workspace-tab-header-container {
     --tab-outline-width: 0px;
@@ -701,10 +714,32 @@ body .mod-root .workspace-tab-header-container-inner {
     margin-top: 6px;
     padding-bottom: 3px;
 }
+/* 中间列只容纳标签页；加号放在右侧列，不影响标签页组居中。 */
+body .workspace .workspace-split.mod-root .workspace-tabs:not(.mod-stacked) > .workspace-tab-header-container {
+    display: grid;
+    grid-template-columns: minmax(120px, 1fr) minmax(0, max-content) minmax(120px, 1fr);
+    padding-inline: 0;
+}
+/* macOS 原生顶栏另有右侧占位；固定按钮已由两侧等宽列避让。 */
+body.mod-macos .workspace .workspace-split.mod-root .workspace-tabs:not(.mod-stacked) > .workspace-tab-header-container {
+    padding-inline: 0;
+}
+body .mod-root .workspace-tabs:not(.mod-stacked) .workspace-tab-header-container-inner {
+    grid-column: 2;
+    grid-row: 1;
+    margin: 7px 0 3px;
+    padding: 0;
+    height: calc(var(--header-height) - 10px);
+    column-gap: 6px;
+}
+body .mod-root .workspace-tabs:not(.mod-stacked) .workspace-tab-header-spacer,
+body .mod-root .workspace-tabs:not(.mod-stacked) .workspace-tab-header-tab-list {
+    display: none;
+}
 body .mod-root .workspace-tabs:not(.mod-stacked) .workspace-tab-header {
     box-shadow: none;
     --tab-radius-active: 6px;
-    margin: 0 2px;
+    margin: 0;
     border: 1px solid var(--color-base-30);
     padding: 1px 0px 0px;
 }
@@ -722,42 +757,271 @@ body .workspace-tab-header-inner-title {
 body .workspace-tab-header-inner::after {
     display: none;
 }
-body .workspace-tab-header-new-tab {
-    padding-top: var(--size-4-1);
+/* 新建标签按钮与标签页共享上下边界，悬停背景和图标一起居中。 */
+body .mod-root .workspace-tabs:not(.mod-stacked) .workspace-tab-header-new-tab {
+    grid-column: 3;
+    grid-row: 1;
+    justify-self: start;
+    margin: 0 0 0 6px;
+    padding: 7px 0 3px;
+    align-items: stretch;
+}
+body .mod-root .workspace-tabs:not(.mod-stacked) .workspace-tab-header-new-tab > .clickable-icon {
+    width: calc(var(--header-height) - 10px);
+    height: 100%;
+    padding: 0;
+    justify-content: center;
+    border-radius: 6px;
 }
 
 /* 选中标签页效果 */
 
-body .workspace-tabs:not(.mod-stacked) .workspace-tab-header.is-active {
+body .mod-root .workspace-tabs:not(.mod-stacked) .workspace-tab-header.is-active {
     border: 1px solid var(--text-accent);
     background-color: var(--color-base-20);
 }
 
-/* 隐藏顶栏按钮、叉号等标签 */
-body div.sidebar-toggle-button.mod-left > div.clickable-icon,
+/* 标题两侧等宽留白，图标和关闭按钮不参与标题宽度分配。 */
+body .workspace .mod-root .workspace-tabs:not(.mod-stacked) .workspace-tab-header-inner {
+    position: relative;
+    padding-inline: 28px;
+}
+body .workspace .mod-root .workspace-tabs:not(.mod-stacked) .workspace-tab-header-inner-title {
+    flex: 1 1 0;
+    min-width: 0;
+    text-align: center;
+}
+body .workspace .mod-root .workspace-tabs:not(.mod-stacked) .workspace-tab-header-inner-icon {
+    position: absolute;
+    inset-inline-start: 4px;
+}
+/* 固定标签的状态图标替代右侧关闭按钮，重置宿主的双侧定位。 */
+body .workspace .mod-root .workspace-tabs:not(.mod-stacked) .workspace-tab-header-status-container {
+    position: absolute;
+    inset-inline-start: auto;
+    inset-inline-end: 4px;
+    width: max-content;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+/* 关闭按钮固定在右侧，仅在悬停或键盘聚焦时显示。 */
+body .workspace .workspace-split.mod-root .workspace-tabs:not(.mod-stacked) .workspace-tab-header-container .workspace-tab-header .workspace-tab-header-inner-close-button,
+body .workspace .workspace-split.mod-root .workspace-tabs:not(.mod-stacked) .workspace-tab-header-container .workspace-tab-header:not(.is-active) .workspace-tab-header-inner-close-button {
+    display: flex;
+    position: absolute;
+    inset-inline-end: 4px;
+    top: 50%;
+    transform: translateY(-50%);
+    flex-shrink: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+body .workspace .workspace-split.mod-root .workspace-tabs:not(.mod-stacked) .workspace-tab-header-container .workspace-tab-header:is(:hover, :focus-within) .workspace-tab-header-inner-close-button {
+    visibility: visible;
+    pointer-events: auto;
+}
+
+/* 将侧边栏切换入口固定在窗口顶角，透明背景融入当前区域。 */
+body:not(.is-mobile) .workspace .workspace-tab-header-container .sidebar-toggle-button:is(.mod-left, .mod-right) {
+    position: fixed;
+    top: 7px;
+    bottom: auto;
+    width: calc(var(--header-height) - 10px);
+    height: calc(var(--header-height) - 10px);
+    padding: 0;
+    margin: 0;
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    z-index: var(--layer-status-bar);
+    -webkit-app-region: no-drag;
+}
+body:not(.is-mobile) .workspace .sidebar-toggle-button > .clickable-icon {
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    border-radius: 6px;
+    justify-content: center;
+    --icon-size: var(--icon-m);
+    --icon-stroke: var(--icon-m-stroke-width);
+}
+body:not(.is-mobile) .workspace .workspace-tab-header-container .sidebar-toggle-button.mod-left {
+    left: var(--size-4-2);
+    right: auto;
+}
+body:not(.is-mobile) .workspace .workspace-tab-header-container .sidebar-toggle-button.mod-right {
+    left: auto;
+    right: var(--size-4-2);
+}
+/* 显示 macOS 窗口控制按钮时，为红黄绿按钮留出空间。 */
+body.mod-macos:not(.is-mobile):not(.is-fullscreen) .workspace .workspace-tab-header-container .sidebar-toggle-button.mod-left {
+    left: 80px;
+}
+
+/* 全屏收起侧栏时，顶部按钮对齐 Ribbon 内容区中心（扣除右侧 1px 边线）。 */
+body.is-fullscreen.show-ribbon:not(.is-mobile) .workspace .mod-root .workspace-tab-header-container .sidebar-toggle-button.mod-left {
+    left: calc((var(--ribbon-width) - 1px - (var(--header-height) - 10px)) / 2);
+}
+
+/* 侧栏展开后，切换按钮参与原生顶栏布局，随侧栏动画移动到右端。 */
+body:not(.is-mobile) .workspace .workspace-split.mod-left-split .workspace-tab-header-container .sidebar-toggle-button.mod-left {
+    position: relative;
+    inset: auto;
+    flex: 0 0 calc(var(--header-height) - 10px);
+    margin: 7px 8px 3px 6px;
+}
+body:not(.is-mobile) .workspace .workspace-split.mod-sidedock .workspace-tab-header-container {
+    justify-content: flex-start;
+}
+body.mod-macos:not(.is-mobile):not(.is-fullscreen) .workspace .workspace-split.mod-left-split .workspace-tabs.mod-top.mod-top-left-space > .workspace-tab-header-container {
+    padding-left: 80px;
+}
+body.is-fullscreen:not(.is-mobile) .workspace .workspace-split.mod-left-split .workspace-tabs.mod-top.mod-top-left-space > .workspace-tab-header-container {
+    padding-left: 8px;
+}
+/* 侧栏工具使用中性选中态，强调色仅用于文档标签。 */
+body .workspace .workspace-split.mod-sidedock .workspace-tab-header.is-active {
+    border: none;
+    background-color: var(--background-modifier-hover);
+    color: var(--text-normal);
+    --tab-text-color-focused-active-current: var(--text-normal);
+}
+
+/* 侧栏页签与加号、侧栏切换按钮共享尺寸和圆角。 */
+body .workspace .workspace-split.mod-sidedock .workspace-tab-header-container-inner {
+    margin: 7px 0 3px;
+    padding: 0;
+    gap: 6px;
+    height: calc(var(--header-height) - 10px);
+}
+body .workspace .workspace-split.mod-sidedock .workspace-tab-header {
+    flex: 0 0 calc(var(--header-height) - 10px);
+    width: calc(var(--header-height) - 10px);
+    height: calc(var(--header-height) - 10px);
+    margin: 0;
+    padding: 0;
+    border-radius: 6px;
+}
+body .workspace .workspace-split.mod-sidedock .workspace-tab-header-inner {
+    padding: 0;
+    justify-content: center;
+}
+body .workspace .workspace-split.mod-sidedock .workspace-tab-header-inner-icon {
+    padding: 0;
+    --icon-size: var(--icon-m);
+    --icon-stroke: var(--icon-m-stroke-width);
+}
+
+/* 面板操作栏：较小的次级图标与内缩分隔线，保留原有点击面积。 */
+body .workspace .mod-sidedock .nav-header {
+    padding-top: 3px;
+}
+body .workspace .mod-sidedock .nav-header::before {
+    content: "";
+    display: block;
+    height: 1px;
+    margin: 0 4px 6px;
+    background-color: var(--background-modifier-border);
+    opacity: 0.5;
+}
+body .workspace .mod-sidedock .nav-action-button {
+    --icon-size: 16px;
+    --icon-color: var(--text-faint);
+    --icon-color-hover: var(--text-normal);
+    padding: 5px 7px;
+    min-width: 30px;
+    min-height: 26px;
+}
+body .workspace .mod-sidedock .nav-action-button:is(:hover, :focus-visible, .is-active) {
+    color: var(--text-normal);
+}
+
+/* 底部仓库栏延续次级工具栏的轻量分隔与图标层级。 */
+body:not(.is-mobile) .workspace-split.mod-left-split .workspace-sidedock-vault-profile {
+    position: relative;
+    background-color: var(--background-primary);
+    border-top: none;
+    padding-top: 8px;
+}
+body:not(.is-mobile) .workspace-sidedock-vault-profile::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 12px;
+    right: 12px;
+    height: 1px;
+    background-color: var(--background-modifier-border);
+    opacity: 0.5;
+    pointer-events: none;
+}
+body .workspace-sidedock-vault-profile .clickable-icon {
+    --icon-size: 16px;
+    --icon-color: var(--text-faint);
+    --icon-color-hover: var(--text-normal);
+    padding: 5px 7px;
+    min-width: 30px;
+    min-height: 26px;
+}
+body .workspace-sidedock-vault-profile .workspace-drawer-vault-switcher-icon {
+    --icon-size: 16px;
+    color: var(--text-faint);
+}
+body .workspace-sidedock-vault-profile .workspace-drawer-vault-name {
+    color: var(--text-muted);
+    font-weight: var(--font-normal);
+}
+body .workspace-sidedock-vault-profile .workspace-drawer-vault-switcher:is(:hover, :focus-visible) :is(.workspace-drawer-vault-name, .workspace-drawer-vault-switcher-icon),
+body .workspace-sidedock-vault-profile .clickable-icon:is(:hover, :focus-visible) {
+    color: var(--text-normal);
+}
+
+/* 非全屏 macOS 顶栏整体上移 2px，对齐原生窗口控制按钮的中心。 */
+body.mod-macos:not(.is-mobile):not(.is-fullscreen) .workspace .workspace-tab-header-container-inner,
+body.mod-macos:not(.is-mobile):not(.is-fullscreen) .workspace .workspace-tab-header-new-tab,
+body.mod-macos:not(.is-mobile):not(.is-fullscreen) .workspace .sidebar-toggle-button {
+    translate: 0 -2px;
+}
+
+/* 隐藏标签列表入口；文档标签关闭按钮由上方悬停规则控制。 */
 body div.workspace-tab-header-tab-list > span.clickable-icon,
-body div.sidebar-toggle-button.mod-right,
-body div.view-actions > a.clickable-icon.view-action,
-body div.view-header-nav-buttons > .clickable-icon,
-body div.view-header > .view-actions,
 body div.workspace-tab-header-inner-close-button {
     display: none;
 }
-body.is-fullscreen .workspace-tab-header-new-tab {
-    display: none;
+
+
+
+/* 恢复原生 Ribbon 布局，以中性图标和轻量分隔融入侧栏。 */
+body {
+    --ribbon-background: var(--background-primary);
+    --ribbon-background-collapsed: var(--background-primary);
+    --status-bar-background: var(--background-primary);
+    --status-bar-text-color: var(--text-muted);
+    --status-bar-font-size: var(--font-ui-smaller);
+    --status-bar-border-color: color-mix(in srgb, var(--background-modifier-border) 50%, transparent);
 }
-
-
-
-/* 隐藏侧边窗 */
-body .workspace-ribbon {
-    opacity: 0;
+/* Ribbon 顶部的原生拖拽占位也使用顶栏底色，避免红绿灯后出现色块。 */
+body .workspace-ribbon.mod-left::before {
+    background-color: var(--background-primary);
+    border-bottom: none;
 }
 body .workspace-ribbon.mod-left {
-    display: none;
-    width: 0px;
-    border: none;
-    transition: 0.25s all;
+    border-right: 1px solid color-mix(in srgb, var(--background-modifier-border) 50%, transparent);
+}
+/* 仅全屏时将分隔线延伸到顶部，避免穿过 macOS 窗口控制按钮。 */
+body.is-fullscreen .workspace-ribbon.mod-left::before {
+    border-right: inherit;
+}
+body .workspace-ribbon.mod-left .side-dock-ribbon-action {
+    --icon-size: 16px;
+    --icon-color: var(--text-muted);
+    --icon-color-hover: var(--text-normal);
+    border-radius: 6px;
+    min-width: 30px;
+    min-height: 30px;
+}
+body .workspace-ribbon.mod-left .side-dock-ribbon-action:is(:hover, :focus-visible) {
+    color: var(--text-normal);
 }
 
 /* 定制侧边栏 */
@@ -766,9 +1030,14 @@ body .workspace-tabs .workspace-leaf {
 }
 
 
-/* 隐藏下方状态栏 */
-body div.status-bar {
-    visibility: hidden;
+/* 状态信息保持低对比度，可操作项在悬停时突出。 */
+body .status-bar {
+    box-shadow: none;
+}
+body .status-bar .status-bar-item.mod-clickable:is(:hover, :focus-visible) {
+    color: var(--text-normal);
+    background-color: var(--background-modifier-hover);
+    border-radius: 4px;
 }
 
 /* 隐藏滚动条 */
@@ -776,11 +1045,23 @@ body div.status-bar {
 ::-webkit-scrollbar {
     display: none;
 }
+/* 隐藏正文滚动条时，同时取消原生 stable gutter 预留的空白。 */
+body .markdown-reading-view .markdown-preview-view,
+body .markdown-source-view.mod-cm6 .cm-scroller {
+    scrollbar-width: none;
+    scrollbar-gutter: auto;
+}
 
 /* 定制界面尺寸 */
 body .cm-editor .cm-scroller,
 body div.markdown-reading-view .markdown-rendered {
     padding-top: 10px;
+}
+
+/* 文件名已显示在标签页与路径栏中，正文不再重复显示内联标题。 */
+body .markdown-reading-view .inline-title,
+body .markdown-source-view.mod-cm6 .inline-title {
+    display: none;
 }
 
 /* 定制 Metadata */
@@ -805,19 +1086,6 @@ body .canvas-node .cm-gutters {
     display: none;
 }
 
-
-/* 行号排版 */
-.markdown-source-view.mod-cm6.is-readable-line-width .cm-sizer {
-    max-width: calc(var(--file-line-width) + 40px);
-}
-.markdown-source-view.mod-cm6 .cm-gutters {
-    margin-inline-end: 10px;
-    width: 30px;
-}
-.markdown-preview-view.is-readable-line-width .markdown-preview-sizer {
-    max-width: calc(var(--file-line-width) + 40px);
-    padding-left: 40px;
-}
 
 /* ===== css/sidenote.css ===== */
 
