@@ -6,7 +6,7 @@ Run this from the Litos theme repository:
 ./scripts/update-showcase
 ```
 
-The command captures nine real Obsidian scenes, rebuilds both product covers, updates the theme gallery images, and copies the Companion cover into the sibling plugin repository. It produces a local Before / After comparison page. It never commits, pushes, or publishes.
+The command captures nine real Obsidian scenes, rebuilds both product covers, updates the theme gallery images and the root screenshot.png used by the community theme directory, and copies the Companion cover into the sibling plugin repository. It produces a local Before / After comparison page. It never commits, pushes, or publishes.
 
 ## Requirements
 

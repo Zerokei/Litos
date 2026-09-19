@@ -173,6 +173,7 @@ def main():
             outputs.append((src, ROOT / "assets/brand/margin" / src.name))
             if slug == "companion":
                 outputs.append((src, companion / "assets/brand" / src.name))
+    outputs.append((assets / "margin/litos-product-cover.png", ROOT / "screenshot.png"))
     rows = []
     for index, (src, dest) in enumerate(outputs):
         if src.suffix == ".png":
