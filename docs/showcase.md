@@ -29,3 +29,7 @@ The optional plugin adds ELK layout to Mermaid flowcharts. This example shows a 
 Copy the [example notes](../examples/brand/) into your vault. Diagram enhancement must be enabled in Companion for the enhanced flowchart. Fonts, accent colors, window width, and other settings can change the appearance.
 
 [Back to Litos](../README.md)
+
+## Maintaining these images
+
+See [Updating showcase images](showcase-maintenance.md) for the one-command capture and cover workflow.

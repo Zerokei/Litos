@@ -1,0 +1,2 @@
+fonttools==4.59.0
+CairoSVG==2.8.2

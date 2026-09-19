@@ -3,3 +3,6 @@
 
 # Skill development workspace
 obsidian-theme-workspace/
+
+# Local showcase tooling and capture batches
+.cache/
