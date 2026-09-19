@@ -464,7 +464,7 @@ body .callout[data-callout-metadata*=revert] {
 /* ===== 标准 callout（非 revert、非 blank-container、非 multi-column）===== */
 
 body .callout:not([data-callout-metadata*=revert]):not([data-callout=blank-container], [data-callout=multi-column], [data-callout=abstract]) {
-  border-color: rgba(var(--callout-color), 0.4);
+  border-color: color-mix(in srgb, var(--callout-color) 40%, transparent);
   border-width: 1px;
   border-radius: var(--callout-radius);
   background-color: rgba(var(--ctp-mantle), 0.4);
@@ -496,7 +496,7 @@ body .callout:not([data-callout-metadata*=revert]):not([data-callout=blank-conta
       padding: 0;
 
       & > .callout-title {
-        background-color: rgba(var(--callout-color), 0.1);
+        background-color: color-mix(in srgb, var(--callout-color) 10%, transparent);
         padding: 8px;
         cursor: pointer;
       }
@@ -504,16 +504,16 @@ body .callout:not([data-callout-metadata*=revert]):not([data-callout=blank-conta
 
     /* 未折叠 */
     &:not(.is-collapsed) {
-      padding: 0px 0px 4px;
+      padding: 0;
 
       & > .callout-title {
-        background-color: rgba(var(--callout-color), 0.1);
+        background-color: color-mix(in srgb, var(--callout-color) 10%, transparent);
         padding: 8px;
         cursor: pointer;
       }
-      & > .callout-content:not(:empty) {
+      &:not([data-callout|="sidenote"]) > .callout-content:not(:empty) {
         padding: 8px;
-        border-top: 1px dashed rgba(var(--callout-color), 0.2);
+        border-top: 1px dashed color-mix(in srgb, var(--callout-color) 20%, transparent);
       }
     }
   }
@@ -523,11 +523,11 @@ body .callout:not([data-callout-metadata*=revert]):not([data-callout=blank-conta
     padding: 0;
 
     & > .callout-title {
-      background-color: rgba(var(--callout-color), 0.1);
+      background-color: color-mix(in srgb, var(--callout-color) 10%, transparent);
       padding: 8px;
     }
-    & > .callout-content:not(:empty) {
-      border-top: 1px dashed rgba(var(--callout-color), 0.2);
+    &:not([data-callout|="sidenote"]) > .callout-content:not(:empty) {
+      border-top: 1px dashed color-mix(in srgb, var(--callout-color) 20%, transparent);
     }
   }
 }
@@ -1415,6 +1415,7 @@ body:not(.minimal-line-nums) .markdown-source-view.is-readable-line-width:is(.le
 
 /* sidenote 额外剥离背景和内边距 */
 .callout[data-callout|="sidenote"] {
+    --callout-color: var(--interactive-accent);
     background-color: transparent;
     padding: unset;
 }
