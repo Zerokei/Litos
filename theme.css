@@ -1428,11 +1428,12 @@ body:not(.minimal-line-nums) .markdown-source-view.is-readable-line-width:is(.le
     display: none;
 }
 
-/* 覆盖 Obsidian 的 overflow 属性（.cm-callout 上有 data-callout-id） */
-.markdown-source-view.mod-cm6 .cm-content > .cm-callout[data-callout-id^="sidenote"],
-.markdown-source-view.mod-cm6 .cm-content > .cm-callout[data-callout-id^="stickynote"] {
+/* 当前 Obsidian 的包装元素不再提供 data-callout-id。
+   允许旁注越出包装元素；普通 Callout 仍由自身控制内容溢出。 */
+.markdown-source-view.mod-cm6 .cm-content > .cm-callout {
     overflow: visible;
-    contain: none;
+    /* Obsidian applies contain: paint !important to non-editable blocks. */
+    contain: none !important;
 }
 
 /* Live Preview 模式下的额外偏移（callout 语法需要额外空行） */
