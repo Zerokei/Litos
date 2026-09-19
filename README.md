@@ -1,20 +1,18 @@
-# Litos
+![Litos — Read. Think. Make it yours.](assets/brand/margin/litos-product-cover.png)
 
-![](cover.png)
+A considered workspace for Obsidian, with editorial typography, clear controls, and room to make it your own.
 
-An Obsidian theme with academic aesthetics, Tufte-style sidenotes, and CJK font support.
-
-![](assets/screenshot-full.png)
+[View the showcase](docs/showcase.md) · [Optional companion plugin](https://github.com/Zerokei/Litos-Companion)
 
 ## Features
 
-- Clean, academic-inspired typography
-- Tufte-style sidenotes via container queries
-- Light and dark mode with HSL accent color system
-- CJK (Chinese/Japanese/Korean) font support
-- Custom callout variants (revert, blank-container, multi-column)
-- Styled checkboxes, tables, and Mermaid diagrams
-- Minimal UI (status bar, ribbons, tabs)
+- **Typography**: Serif headings and CJK font support for reading and writing.
+- **Sidenotes**: Keep supporting information beside the main text when space allows.
+- **Workspace**: Centered document tabs and consistent controls across the interface.
+- **Appearance**: Light and dark modes with customizable accent colors.
+- **Note elements**: Styled callouts, checkboxes, tables, and Mermaid diagrams.
+
+Litos works on its own. [Litos Companion](https://github.com/Zerokei/Litos-Companion) adds heading alignment, Zen mode, an accent color entry, and optional Mermaid ELK rendering.
 
 ## Installation
 
