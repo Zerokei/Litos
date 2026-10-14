@@ -304,10 +304,13 @@ code {
 
 /* ===== 引用样式 ===== */
 
-div.el-blockquote > blockquote {
+/* callout 内的引用没有 el-blockquote 外层，两种模式都需覆盖。 */
+.markdown-rendered blockquote:not(.callout),
+.markdown-source-view blockquote:not(.callout) {
   display: flow-root;
   margin: 1em 0;
-  padding: 0.75em 2.5em;
+  /* 为装饰性闭引号留出底部空间，避免撑出滚动条。 */
+  padding: 0.75em 2.5em 1.5em;
   border-inline-start: none;
 }
 
