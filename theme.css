@@ -63,6 +63,8 @@ body {
   --blockquote-border-thickness: 0px;
   --callout-radius: 4px;
   --tab-stacked-pane-width: 100%;
+  /* 文件路径居中（阅读模式和实时预览共用） */
+  --file-header-justify: center;
   /* 链接下划线 text-shadow（防止中文字体覆盖下划线） */
   --link-text-shadow:
      0      0.01em var(--background-primary),
@@ -743,6 +745,7 @@ body div.workspace-tab-header-tab-list > span.clickable-icon,
 body div.sidebar-toggle-button.mod-right,
 body div.view-actions > a.clickable-icon.view-action,
 body div.view-header-nav-buttons > .clickable-icon,
+body div.view-header > .view-header-left,
 body div.view-header > .view-actions,
 body div.workspace-tab-header-inner-close-button {
     display: none;
