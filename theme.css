@@ -1,13 +1,11 @@
-/* ===== Litos Theme (built from theme.dev.css) ===== */
-/* Do not edit directly — edit css/ modules and run ./build.sh */
+/* ===== Litos Theme ===== */
 
 
 /* ===== css/basic.css ===== */
 
 /* ===== 主题颜色 ===== */
 
-.theme-light,
-[saved-theme=light] /* for Quartz */ {
+.theme-light {
   --accent-h: 31;
   --accent-s: 95%;
   --accent-l: 60%;
@@ -20,8 +18,7 @@
   --text-normal: #000000;
 }
 
-.theme-dark,
-[saved-theme=dark] /* for Quartz */ {
+.theme-dark {
   --accent-h: 190;
   --accent-s: 95%;
   --accent-l: 60%;
@@ -34,6 +31,15 @@
 /* ===== 全局变量 ===== */
 
 body {
+  /* Litos Companion: optional display controls and diagram palette. */
+  --litos-companion-api: 1;
+  --litos-h2-align: right;
+  --litos-diagram-surface: var(--background-primary);
+  --litos-diagram-node: var(--background-secondary);
+  --litos-diagram-text: var(--text-normal);
+  --litos-diagram-border: var(--background-modifier-border);
+  --litos-diagram-line: var(--text-muted);
+  --litos-diagram-label: var(--background-primary);
   --radius-s: 4px;
   /* 标题 */
   --h1-size: 2.00em;
@@ -108,10 +114,10 @@ body :is(.markdown-rendered :is(h1, h2, h3, h4), .HyperMD-header-1, .HyperMD-hea
   line-height: 1;
 }
 
-/* h2 居右 */
+/* h2 默认居右；Litos Companion 可通过变量调整。 */
 .markdown-rendered h2, .HyperMD-header-2 {
   margin-top: 2.5rem;
-  text-align: right;
+  text-align: var(--litos-h2-align, right);
 }
 
 /* h3/h4 上方间距 */
@@ -298,8 +304,7 @@ code {
 
 /* ===== 引用样式 ===== */
 
-div.el-blockquote > blockquote, /* for Obsidian */
-blockquote:not(.callout)        /* for Quartz */ {
+div.el-blockquote > blockquote {
   display: flow-root;
   margin: 1em 0;
   padding: 0.75em 2.5em;
@@ -461,7 +466,7 @@ body .callout[data-callout-metadata*=revert] {
 /* ===== 标准 callout（非 revert、非 blank-container、非 multi-column）===== */
 
 body .callout:not([data-callout-metadata*=revert]):not([data-callout=blank-container], [data-callout=multi-column], [data-callout=abstract]) {
-  border-color: rgba(var(--callout-color), 0.4);
+  border-color: color-mix(in srgb, var(--callout-color) 40%, transparent);
   border-width: 1px;
   border-radius: var(--callout-radius);
   background-color: rgba(var(--ctp-mantle), 0.4);
@@ -493,7 +498,7 @@ body .callout:not([data-callout-metadata*=revert]):not([data-callout=blank-conta
       padding: 0;
 
       & > .callout-title {
-        background-color: rgba(var(--callout-color), 0.1);
+        background-color: color-mix(in srgb, var(--callout-color) 10%, transparent);
         padding: 8px;
         cursor: pointer;
       }
@@ -501,16 +506,16 @@ body .callout:not([data-callout-metadata*=revert]):not([data-callout=blank-conta
 
     /* 未折叠 */
     &:not(.is-collapsed) {
-      padding: 0px 0px 4px;
+      padding: 0;
 
       & > .callout-title {
-        background-color: rgba(var(--callout-color), 0.1);
+        background-color: color-mix(in srgb, var(--callout-color) 10%, transparent);
         padding: 8px;
         cursor: pointer;
       }
-      & > .callout-content:not(:empty) {
+      &:not([data-callout|="sidenote"]) > .callout-content:not(:empty) {
         padding: 8px;
-        border-top: 1px dashed rgba(var(--callout-color), 0.2);
+        border-top: 1px dashed color-mix(in srgb, var(--callout-color) 20%, transparent);
       }
     }
   }
@@ -520,11 +525,11 @@ body .callout:not([data-callout-metadata*=revert]):not([data-callout=blank-conta
     padding: 0;
 
     & > .callout-title {
-      background-color: rgba(var(--callout-color), 0.1);
+      background-color: color-mix(in srgb, var(--callout-color) 10%, transparent);
       padding: 8px;
     }
-    & > .callout-content:not(:empty) {
-      border-top: 1px dashed rgba(var(--callout-color), 0.2);
+    &:not([data-callout|="sidenote"]) > .callout-content:not(:empty) {
+      border-top: 1px dashed color-mix(in srgb, var(--callout-color) 20%, transparent);
     }
   }
 }
@@ -589,7 +594,8 @@ body :is(.HyperMD-task-line, .task-list-item)[data-task="-"] {
 }
 [data-task="-"] input[type=checkbox]:checked::after,
 [data-task="-"][type=checkbox]:checked::after {
-  -webkit-mask-image: url("data:image/svg+xml,%3Csvg width='800px' height='800px' viewBox='0 0 16 16' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M2 8a1 1 0 011-1h10a1 1 0 110 2H3a1 1 0 01-1-1z' fill='%23000000'/%3E%3C/svg%3E")
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg width='800px' height='800px' viewBox='0 0 16 16' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M2 8a1 1 0 011-1h10a1 1 0 110 2H3a1 1 0 01-1-1z' fill='%23000000'/%3E%3C/svg%3E");
+  mask-image: url("data:image/svg+xml,%3Csvg width='800px' height='800px' viewBox='0 0 16 16' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M2 8a1 1 0 011-1h10a1 1 0 110 2H3a1 1 0 01-1-1z' fill='%23000000'/%3E%3C/svg%3E");
 }
 
 /* 有问题 */
@@ -602,7 +608,9 @@ body :is(.HyperMD-task-line, .task-list-item)[data-task="-"] {
 [data-task="?"][type=checkbox]:checked::after {
   background-color: #c8857f;
   -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3C!--!  --%3E%3Cpath d='M256 512c141.4 0 256-114.6 256-256S397.4 0 256 0S0 114.6 0 256S114.6 512 256 512zM169.8 165.3c7.9-22.3 29.1-37.3 52.8-37.3h58.3c34.9 0 63.1 28.3 63.1 63.1c0 22.6-12.1 43.5-31.7 54.8L280 264.4c-.2 13-10.9 23.6-24 23.6c-13.3 0-24-10.7-24-24V250.5c0-8.6 4.6-16.5 12.1-20.8l44.3-25.4c4.7-2.7 7.6-7.7 7.6-13.1c0-8.4-6.8-15.1-15.1-15.1H222.6c-3.4 0-6.4 2.1-7.5 5.3l-.4 1.2c-4.4 12.5-18.2 19-30.6 14.6s-19-18.2-14.6-30.6l.4-1.2zM288 352c0 17.7-14.3 32-32 32s-32-14.3-32-32s14.3-32 32-32s32 14.3 32 32z'/%3E%3C/svg%3E");
+  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3C!--!  --%3E%3Cpath d='M256 512c141.4 0 256-114.6 256-256S397.4 0 256 0S0 114.6 0 256S114.6 512 256 512zM169.8 165.3c7.9-22.3 29.1-37.3 52.8-37.3h58.3c34.9 0 63.1 28.3 63.1 63.1c0 22.6-12.1 43.5-31.7 54.8L280 264.4c-.2 13-10.9 23.6-24 23.6c-13.3 0-24-10.7-24-24V250.5c0-8.6 4.6-16.5 12.1-20.8l44.3-25.4c4.7-2.7 7.6-7.7 7.6-13.1c0-8.4-6.8-15.1-15.1-15.1H222.6c-3.4 0-6.4 2.1-7.5 5.3l-.4 1.2c-4.4 12.5-18.2 19-30.6 14.6s-19-18.2-14.6-30.6l.4-1.2zM288 352c0 17.7-14.3 32-32 32s-32-14.3-32-32s14.3-32 32-32s32 14.3 32 32z'/%3E%3C/svg%3E");
   -webkit-mask-size: contain;
+  mask-size: contain;
 }
 
 /* 正在实现 */
@@ -613,7 +621,8 @@ body [data-task="+"][type=checkbox]:checked {
 }
 [data-task="+"] input[type=checkbox]:checked::after,
 [data-task="+"][type=checkbox]:checked::after {
-  -webkit-mask-image: url("data:image/svg+xml,%3Csvg width='800px' height='800px' viewBox='0 0 16 16' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill='%23000000' d='M3.70711,2.29289 L8.70711,7.29289 C9.09763,7.68342 9.09763,8.31658 8.70711,8.70711 L3.70711,13.7071 C3.31658,14.0976 2.68342,14.0976 2.29289,13.7071 C1.90237,13.3166 1.90237,12.6834 2.29289,12.2929 L6.58579,8 L2.29289,3.70711 C1.90237,3.31658 1.90237,2.68342 2.29289,2.29289 C2.68342,1.90237 3.31658,1.90237 3.70711,2.29289 Z M8.70711,2.29289 L13.7071,7.29289 C14.0976,7.68342 14.0976,8.31658 13.7071,8.70711 L8.70711,13.7071 C8.31658,14.0976 7.68342,14.0976 7.29289,13.7071 C6.90237,13.3166 6.90237,12.6834 7.29289,12.2929 L11.5858,8 L7.29289,3.70711 C6.90237,3.31658 6.90237,2.68342 7.29289,2.29289 C7.68342,1.90237 8.31658,1.90237 8.70711,2.29289 Z'/%3E%3C/svg%3E")
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg width='800px' height='800px' viewBox='0 0 16 16' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill='%23000000' d='M3.70711,2.29289 L8.70711,7.29289 C9.09763,7.68342 9.09763,8.31658 8.70711,8.70711 L3.70711,13.7071 C3.31658,14.0976 2.68342,14.0976 2.29289,13.7071 C1.90237,13.3166 1.90237,12.6834 2.29289,12.2929 L6.58579,8 L2.29289,3.70711 C1.90237,3.31658 1.90237,2.68342 2.29289,2.29289 C2.68342,1.90237 3.31658,1.90237 3.70711,2.29289 Z M8.70711,2.29289 L13.7071,7.29289 C14.0976,7.68342 14.0976,8.31658 13.7071,8.70711 L8.70711,13.7071 C8.31658,14.0976 7.68342,14.0976 7.29289,13.7071 C6.90237,13.3166 6.90237,12.6834 7.29289,12.2929 L11.5858,8 L7.29289,3.70711 C6.90237,3.31658 6.90237,2.68342 7.29289,2.29289 C7.68342,1.90237 8.31658,1.90237 8.70711,2.29289 Z'/%3E%3C/svg%3E");
+  mask-image: url("data:image/svg+xml,%3Csvg width='800px' height='800px' viewBox='0 0 16 16' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill='%23000000' d='M3.70711,2.29289 L8.70711,7.29289 C9.09763,7.68342 9.09763,8.31658 8.70711,8.70711 L3.70711,13.7071 C3.31658,14.0976 2.68342,14.0976 2.29289,13.7071 C1.90237,13.3166 1.90237,12.6834 2.29289,12.2929 L6.58579,8 L2.29289,3.70711 C1.90237,3.31658 1.90237,2.68342 2.29289,2.29289 C2.68342,1.90237 3.31658,1.90237 3.70711,2.29289 Z M8.70711,2.29289 L13.7071,7.29289 C14.0976,7.68342 14.0976,8.31658 13.7071,8.70711 L8.70711,13.7071 C8.31658,14.0976 7.68342,14.0976 7.29289,13.7071 C6.90237,13.3166 6.90237,12.6834 7.29289,12.2929 L11.5858,8 L7.29289,3.70711 C6.90237,3.31658 6.90237,2.68342 7.29289,2.29289 C7.68342,1.90237 8.31658,1.90237 8.70711,2.29289 Z'/%3E%3C/svg%3E");
 }
 
 /* ===== css/mermaid.css ===== */
@@ -651,7 +660,7 @@ div.mermaid::after {
   bottom: 0;
 }
 
-body rect {
+body div.mermaid svg:not(.litos-companion-diagram) rect {
   stroke: var(--border-color);
   fill: transparent;
 }
@@ -671,6 +680,10 @@ body div.table-wrapper div.cm-scroller {
 
 /* ===== css/ui.css ===== */
 
+/* 专注模式隐藏导航容器，避免路径栏左侧保留间隙。 */
+body.litos-companion-zen div.view-header > .view-header-left {
+    display: none;
+}
 
 :where(body) {
     --tab-text-color-focused-active-current: var(--text-accent);
@@ -679,7 +692,11 @@ body div.table-wrapper div.cm-scroller {
 /* 定制标签栏 */
 
 body:not(.is-fullscreen) :not(.mod-stacked) div.workspace-tabs.mod-top.mod-top-left-space .workspace-tab-header-container {
-    padding-left: 80px;
+    padding-left: 120px;
+}
+/* 全屏仍需为固定的左侧按钮预留位置。 */
+body.is-fullscreen:not(.is-mobile) .workspace-tabs.mod-top.mod-top-left-space > .workspace-tab-header-container {
+    padding-left: calc(var(--size-4-8) + var(--size-4-4));
 }
 body .workspace-tabs:not(.mod-stacked) > .workspace-tab-header-container {
     --tab-outline-width: 0px;
@@ -687,6 +704,11 @@ body .workspace-tabs:not(.mod-stacked) > .workspace-tab-header-container {
     display: flex;
     justify-content: center;
     padding-right: 0px;
+}
+/* 顶部标签栏与内容区之间的分隔线；内阴影不改变布局尺寸。 */
+body:not(.is-mobile):not(.litos-companion-zen) .workspace-tabs.mod-top:not(.mod-stacked) > .workspace-tab-header-container,
+body:not(.is-mobile):not(.litos-companion-zen) .workspace-ribbon.mod-left::before {
+    box-shadow: inset 0 -1px color-mix(in srgb, var(--background-modifier-border) 50%, transparent);
 }
 body .workspace-tabs.mod-stacked .workspace-tab-header-container {
     background-color: var(--background-primary);
@@ -707,10 +729,32 @@ body .mod-root .workspace-tab-header-container-inner {
     margin-top: 6px;
     padding-bottom: 3px;
 }
+/* 中间列只容纳标签页；加号放在右侧列，不影响标签页组居中。 */
+body .workspace .workspace-split.mod-root .workspace-tabs:not(.mod-stacked) > .workspace-tab-header-container {
+    display: grid;
+    grid-template-columns: minmax(120px, 1fr) minmax(0, max-content) minmax(120px, 1fr);
+    padding-inline: 0;
+}
+/* macOS 原生顶栏另有右侧占位；固定按钮已由两侧等宽列避让。 */
+body.mod-macos .workspace .workspace-split.mod-root .workspace-tabs:not(.mod-stacked) > .workspace-tab-header-container {
+    padding-inline: 0;
+}
+body .mod-root .workspace-tabs:not(.mod-stacked) .workspace-tab-header-container-inner {
+    grid-column: 2;
+    grid-row: 1;
+    margin: 7px 0 3px;
+    padding: 0;
+    height: calc(var(--header-height) - 10px);
+    gap: normal 6px;
+}
+body .mod-root .workspace-tabs:not(.mod-stacked) .workspace-tab-header-spacer,
+body .mod-root .workspace-tabs:not(.mod-stacked) .workspace-tab-header-tab-list {
+    display: none;
+}
 body .mod-root .workspace-tabs:not(.mod-stacked) .workspace-tab-header {
     box-shadow: none;
     --tab-radius-active: 6px;
-    margin: 0 2px;
+    margin: 0;
     border: 1px solid var(--color-base-30);
     padding: 1px 0px 0px;
 }
@@ -728,43 +772,263 @@ body .workspace-tab-header-inner-title {
 body .workspace-tab-header-inner::after {
     display: none;
 }
-body .workspace-tab-header-new-tab {
-    padding-top: var(--size-4-1);
+/* 新建标签按钮与标签页共享上下边界，悬停背景和图标一起居中。 */
+body .mod-root .workspace-tabs:not(.mod-stacked) .workspace-tab-header-new-tab {
+    grid-column: 3;
+    grid-row: 1;
+    justify-self: start;
+    margin: 0 0 0 6px;
+    padding: 7px 0 3px;
+    align-items: stretch;
+}
+body .mod-root .workspace-tabs:not(.mod-stacked) .workspace-tab-header-new-tab > .clickable-icon {
+    width: calc(var(--header-height) - 10px);
+    height: 100%;
+    padding: 0;
+    justify-content: center;
+    border-radius: 6px;
 }
 
 /* 选中标签页效果 */
 
-body .workspace-tabs:not(.mod-stacked) .workspace-tab-header.is-active {
+body .mod-root .workspace-tabs:not(.mod-stacked) .workspace-tab-header.is-active {
     border: 1px solid var(--text-accent);
     background-color: var(--color-base-20);
 }
 
-/* 隐藏顶栏按钮、叉号等标签 */
-body div.sidebar-toggle-button.mod-left > div.clickable-icon,
+/* 标题两侧等宽留白，图标和关闭按钮不参与标题宽度分配。 */
+body .workspace .mod-root .workspace-tabs:not(.mod-stacked) .workspace-tab-header-inner {
+    position: relative;
+    padding-inline: 28px;
+}
+body .workspace .mod-root .workspace-tabs:not(.mod-stacked) .workspace-tab-header-inner-title {
+    flex: 1 1 0;
+    min-width: 0;
+    text-align: center;
+}
+body .workspace .mod-root .workspace-tabs:not(.mod-stacked) .workspace-tab-header-inner-icon {
+    position: absolute;
+    inset-inline-start: 4px;
+}
+/* 固定标签的状态图标替代右侧关闭按钮，重置宿主的双侧定位。 */
+body .workspace .mod-root .workspace-tabs:not(.mod-stacked) .workspace-tab-header-status-container {
+    position: absolute;
+    inset-inline-start: auto;
+    inset-inline-end: 4px;
+    width: max-content;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+/* 关闭按钮固定在右侧，仅在悬停或键盘聚焦时显示。 */
+body .workspace .workspace-split.mod-root .workspace-tabs:not(.mod-stacked) .workspace-tab-header-container .workspace-tab-header .workspace-tab-header-inner-close-button,
+body .workspace .workspace-split.mod-root .workspace-tabs:not(.mod-stacked) .workspace-tab-header-container .workspace-tab-header:not(.is-active) .workspace-tab-header-inner-close-button {
+    display: flex;
+    position: absolute;
+    inset-inline-end: 4px;
+    top: 50%;
+    transform: translateY(-50%);
+    flex-shrink: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+body .workspace .workspace-split.mod-root .workspace-tabs:not(.mod-stacked) .workspace-tab-header-container .workspace-tab-header:is(:hover, :focus-within) .workspace-tab-header-inner-close-button {
+    visibility: visible;
+    pointer-events: auto;
+}
+
+/* 将侧边栏切换入口固定在窗口顶角，透明背景融入当前区域。 */
+body:not(.is-mobile) .workspace .workspace-tab-header-container .sidebar-toggle-button:is(.mod-left, .mod-right) {
+    position: fixed;
+    top: 7px;
+    bottom: auto;
+    width: calc(var(--header-height) - 10px);
+    height: calc(var(--header-height) - 10px);
+    padding: 0;
+    margin: 0;
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    z-index: var(--layer-status-bar);
+    -webkit-app-region: no-drag;
+}
+body:not(.is-mobile) .workspace .sidebar-toggle-button > .clickable-icon {
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    border-radius: 6px;
+    justify-content: center;
+    --icon-size: var(--icon-m);
+    --icon-stroke: var(--icon-m-stroke-width);
+}
+body:not(.is-mobile) .workspace .workspace-tab-header-container .sidebar-toggle-button.mod-left {
+    left: var(--size-4-2);
+    right: auto;
+}
+body:not(.is-mobile) .workspace .workspace-tab-header-container .sidebar-toggle-button.mod-right {
+    left: auto;
+    right: var(--size-4-2);
+}
+/* 显示 macOS 窗口控制按钮时，为红黄绿按钮留出空间。 */
+body.mod-macos:not(.is-mobile):not(.is-fullscreen) .workspace .workspace-tab-header-container .sidebar-toggle-button.mod-left {
+    left: 80px;
+}
+
+/* 全屏收起侧栏时，顶部按钮对齐 Ribbon 内容区中心（扣除右侧 1px 边线）。 */
+body.is-fullscreen.show-ribbon:not(.is-mobile) .workspace .mod-root .workspace-tab-header-container .sidebar-toggle-button.mod-left {
+    left: calc((var(--ribbon-width) - 1px - (var(--header-height) - 10px)) / 2);
+}
+
+/* 侧栏展开后，切换按钮参与原生顶栏布局，随侧栏动画移动到右端。 */
+body:not(.is-mobile) .workspace .workspace-split.mod-left-split .workspace-tab-header-container .sidebar-toggle-button.mod-left {
+    position: relative;
+    inset: auto;
+    flex: 0 0 calc(var(--header-height) - 10px);
+    margin: 7px 8px 3px 6px;
+}
+body:not(.is-mobile) .workspace .workspace-split.mod-sidedock .workspace-tab-header-container {
+    justify-content: flex-start;
+}
+body.mod-macos:not(.is-mobile):not(.is-fullscreen) .workspace .workspace-split.mod-left-split .workspace-tabs.mod-top.mod-top-left-space > .workspace-tab-header-container {
+    padding-left: 80px;
+}
+body.is-fullscreen:not(.is-mobile) .workspace .workspace-split.mod-left-split .workspace-tabs.mod-top.mod-top-left-space > .workspace-tab-header-container {
+    padding-left: 8px;
+}
+/* 侧栏工具使用中性选中态，强调色仅用于文档标签。 */
+body .workspace .workspace-split.mod-sidedock .workspace-tab-header.is-active {
+    border: none;
+    background-color: var(--background-modifier-hover);
+    color: var(--text-normal);
+    --tab-text-color-focused-active-current: var(--text-normal);
+}
+
+/* 侧栏页签与加号、侧栏切换按钮共享尺寸和圆角。 */
+body .workspace .workspace-split.mod-sidedock .workspace-tab-header-container-inner {
+    margin: 7px 0 3px;
+    padding: 0;
+    gap: 6px;
+    height: calc(var(--header-height) - 10px);
+}
+body .workspace .workspace-split.mod-sidedock .workspace-tab-header {
+    flex: 0 0 calc(var(--header-height) - 10px);
+    width: calc(var(--header-height) - 10px);
+    height: calc(var(--header-height) - 10px);
+    margin: 0;
+    padding: 0;
+    border-radius: 6px;
+}
+body .workspace .workspace-split.mod-sidedock .workspace-tab-header-inner {
+    padding: 0;
+    justify-content: center;
+}
+body .workspace .workspace-split.mod-sidedock .workspace-tab-header-inner-icon {
+    padding: 0;
+    --icon-size: var(--icon-m);
+    --icon-stroke: var(--icon-m-stroke-width);
+}
+
+/* 面板操作栏：保留次级图标与留白，分隔统一由顶部标签栏提供。 */
+body .workspace .mod-sidedock .nav-header {
+    padding-top: 10px;
+}
+body .workspace .mod-sidedock .nav-action-button {
+    --icon-size: 16px;
+    --icon-color: var(--text-faint);
+    --icon-color-hover: var(--text-normal);
+    padding: 5px 7px;
+    min-width: 30px;
+    min-height: 26px;
+}
+body .workspace .mod-sidedock .nav-action-button:is(:hover, :focus-visible, .is-active) {
+    color: var(--text-normal);
+}
+
+/* 底部仓库栏延续次级工具栏的轻量分隔与图标层级。 */
+body:not(.is-mobile) .workspace-split.mod-left-split .workspace-sidedock-vault-profile {
+    position: relative;
+    background-color: var(--background-primary);
+    border-top: none;
+    padding-top: 8px;
+}
+body:not(.is-mobile) .workspace-sidedock-vault-profile::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 12px;
+    right: 12px;
+    height: 1px;
+    background-color: var(--background-modifier-border);
+    opacity: 0.5;
+    pointer-events: none;
+}
+body .workspace-sidedock-vault-profile .clickable-icon {
+    --icon-size: 16px;
+    --icon-color: var(--text-faint);
+    --icon-color-hover: var(--text-normal);
+    padding: 5px 7px;
+    min-width: 30px;
+    min-height: 26px;
+}
+body .workspace-sidedock-vault-profile .workspace-drawer-vault-switcher-icon {
+    --icon-size: 16px;
+    color: var(--text-faint);
+}
+body .workspace-sidedock-vault-profile .workspace-drawer-vault-name {
+    color: var(--text-muted);
+    font-weight: var(--font-normal);
+}
+body .workspace-sidedock-vault-profile .workspace-drawer-vault-switcher:is(:hover, :focus-visible) :is(.workspace-drawer-vault-name, .workspace-drawer-vault-switcher-icon),
+body .workspace-sidedock-vault-profile .clickable-icon:is(:hover, :focus-visible) {
+    color: var(--text-normal);
+}
+
+/* 非全屏 macOS 顶栏整体上移 2px，对齐原生窗口控制按钮的中心。 */
+body.mod-macos:not(.is-mobile):not(.is-fullscreen) .workspace .workspace-tab-header-container-inner,
+body.mod-macos:not(.is-mobile):not(.is-fullscreen) .workspace .workspace-tab-header-new-tab,
+body.mod-macos:not(.is-mobile):not(.is-fullscreen) .workspace .sidebar-toggle-button {
+    translate: 0 -2px;
+}
+
+/* 隐藏标签列表入口；文档标签关闭按钮由上方悬停规则控制。 */
 body div.workspace-tab-header-tab-list > span.clickable-icon,
-body div.sidebar-toggle-button.mod-right,
-body div.view-actions > a.clickable-icon.view-action,
-body div.view-header-nav-buttons > .clickable-icon,
-body div.view-header > .view-header-left,
-body div.view-header > .view-actions,
 body div.workspace-tab-header-inner-close-button {
     display: none;
 }
-body.is-fullscreen .workspace-tab-header-new-tab {
-    display: none;
+
+
+
+/* 恢复原生 Ribbon 布局，以中性图标和轻量分隔融入侧栏。 */
+body {
+    --ribbon-background: var(--background-primary);
+    --ribbon-background-collapsed: var(--background-primary);
+    --status-bar-background: var(--background-primary);
+    --status-bar-text-color: var(--text-muted);
+    --status-bar-font-size: var(--font-ui-smaller);
+    --status-bar-border-color: color-mix(in srgb, var(--background-modifier-border) 50%, transparent);
 }
-
-
-
-/* 隐藏侧边窗 */
-body .workspace-ribbon {
-    opacity: 0;
+/* Ribbon 顶部的原生拖拽占位也使用顶栏底色，避免红绿灯后出现色块。 */
+body .workspace-ribbon.mod-left::before {
+    background-color: var(--background-primary);
+    border-bottom: none;
 }
 body .workspace-ribbon.mod-left {
-    display: none;
-    width: 0px;
-    border: none;
-    transition: 0.25s all;
+    border-right: 1px solid color-mix(in srgb, var(--background-modifier-border) 50%, transparent);
+}
+/* 仅全屏时将分隔线延伸到顶部，避免穿过 macOS 窗口控制按钮。 */
+body.is-fullscreen .workspace-ribbon.mod-left::before {
+    border-right: inherit;
+}
+body .workspace-ribbon.mod-left .side-dock-ribbon-action {
+    --icon-size: 16px;
+    --icon-color: var(--text-muted);
+    --icon-color-hover: var(--text-normal);
+    border-radius: 6px;
+    min-width: 30px;
+    min-height: 30px;
+}
+body .workspace-ribbon.mod-left .side-dock-ribbon-action:is(:hover, :focus-visible) {
+    color: var(--text-normal);
 }
 
 /* 定制侧边栏 */
@@ -773,9 +1037,14 @@ body .workspace-tabs .workspace-leaf {
 }
 
 
-/* 隐藏下方状态栏 */
-body div.status-bar {
-    visibility: hidden;
+/* 状态信息保持低对比度，可操作项在悬停时突出。 */
+body .status-bar {
+    box-shadow: none;
+}
+body .status-bar .status-bar-item.mod-clickable:is(:hover, :focus-visible) {
+    color: var(--text-normal);
+    background-color: var(--background-modifier-hover);
+    border-radius: 4px;
 }
 
 /* 隐藏滚动条 */
@@ -783,11 +1052,23 @@ body div.status-bar {
 ::-webkit-scrollbar {
     display: none;
 }
+/* 隐藏正文滚动条时，同时取消原生 stable gutter 预留的空白。 */
+body .markdown-reading-view .markdown-preview-view,
+body .markdown-source-view.mod-cm6 .cm-scroller {
+    scrollbar-width: none;
+    scrollbar-gutter: auto;
+}
 
 /* 定制界面尺寸 */
 body .cm-editor .cm-scroller,
 body div.markdown-reading-view .markdown-rendered {
     padding-top: 10px;
+}
+
+/* 文件名已显示在标签页与路径栏中，正文不再重复显示内联标题。 */
+body .markdown-reading-view .inline-title,
+body .markdown-source-view.mod-cm6 .inline-title {
+    display: none;
 }
 
 /* 定制 Metadata */
@@ -813,22 +1094,9 @@ body .canvas-node .cm-gutters {
 }
 
 
-/* 行号排版 */
-.markdown-source-view.mod-cm6.is-readable-line-width .cm-sizer {
-    max-width: calc(var(--file-line-width) + 40px);
-}
-.markdown-source-view.mod-cm6 .cm-gutters {
-    margin-inline-end: 10px;
-    width: 30px;
-}
-.markdown-preview-view.is-readable-line-width .markdown-preview-sizer {
-    max-width: calc(var(--file-line-width) + 40px);
-    padding-left: 40px;
-}
-
 /* ===== css/sidenote.css ===== */
 
-/* ===== 可配置变量（Style Settings 插件） ===== */
+/* ===== 可配置变量（覆盖以下变量即可调整侧注布局） ===== */
 
 :where(body) {
     --sidenote-default-position: right;
@@ -1154,6 +1422,7 @@ body:not(.minimal-line-nums) .markdown-source-view.is-readable-line-width:is(.le
 
 /* sidenote 额外剥离背景和内边距 */
 .callout[data-callout|="sidenote"] {
+    --callout-color: var(--interactive-accent);
     background-color: transparent;
     padding: unset;
 }
@@ -1167,11 +1436,12 @@ body:not(.minimal-line-nums) .markdown-source-view.is-readable-line-width:is(.le
     display: none;
 }
 
-/* 覆盖 Obsidian 的 overflow 属性（.cm-callout 上有 data-callout-id） */
-.markdown-source-view.mod-cm6 .cm-content > .cm-callout[data-callout-id^="sidenote"],
-.markdown-source-view.mod-cm6 .cm-content > .cm-callout[data-callout-id^="stickynote"] {
+/* 当前 Obsidian 的包装元素不再提供 data-callout-id。
+   允许旁注越出包装元素；普通 Callout 仍由自身控制内容溢出。 */
+.markdown-source-view.mod-cm6 .cm-content > .cm-callout {
     overflow: visible;
-    contain: none;
+    /* Obsidian applies contain: paint !important to non-editable blocks. */
+    contain: none !important;
 }
 
 /* Live Preview 模式下的额外偏移（callout 语法需要额外空行） */

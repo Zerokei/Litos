@@ -1,0 +1,16 @@
+{
+  "vault": "ob-dev-vault",
+  "companion": "../../plugins/litos-companion",
+  "viewport": {"width": 1160, "height": 760, "deviceScaleFactor": 2, "mobile": false},
+  "scenes": [
+    {"output": "product-reading-light.png", "note": "Reading", "appearance": "moonstone"},
+    {"output": "product-reading-dark.png", "note": "Reading", "appearance": "obsidian"},
+    {"output": "product-workspace-light.png", "note": "Workspace", "appearance": "moonstone"},
+    {"output": "product-diagram-dark.png", "note": "Connections", "appearance": "obsidian", "diagrams": true},
+    {"output": "workspace-light.png", "note": "Workspace", "appearance": "moonstone", "width": 1440, "height": 900},
+    {"output": "workspace-dark.png", "note": "Workspace", "appearance": "obsidian", "width": 1440, "height": 900},
+    {"output": "reading-light.png", "note": "Reading", "appearance": "moonstone", "width": 1440, "height": 900},
+    {"output": "reading-dark.png", "note": "Reading", "appearance": "obsidian", "width": 1440, "height": 900},
+    {"output": "companion-diagram-dark.png", "note": "Connections", "appearance": "obsidian", "diagrams": true, "width": 1440, "height": 900}
+  ]
+}

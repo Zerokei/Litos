@@ -1,0 +1,16 @@
+#!/bin/sh
+set -eu
+ROOT=$(CDPATH= cd -- "$(dirname -- "$0")/.." && pwd)
+if [ -n "${SHOWCASE_PYTHON:-}" ]; then
+  PYTHON="$SHOWCASE_PYTHON"
+else
+  PYTHON="$ROOT/.cache/showcase-venv/bin/python"
+  if [ ! -x "$PYTHON" ]; then
+    python3 -m venv "$ROOT/.cache/showcase-venv"
+  fi
+fi
+export DYLD_FALLBACK_LIBRARY_PATH="${DYLD_FALLBACK_LIBRARY_PATH:-/opt/homebrew/lib:/usr/local/lib}"
+if ! "$PYTHON" -c 'import fontTools, cairosvg' 2>/dev/null; then
+  "$PYTHON" -m pip install -r "$ROOT/scripts/showcase/requirements.txt"
+fi
+exec "$PYTHON" "$ROOT/scripts/showcase/update.py" "$@"
