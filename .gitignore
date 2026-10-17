@@ -9,3 +9,5 @@ obsidian-theme-workspace/
 
 # Theme audit dependencies
 node_modules/
+__pycache__/
+*.pyc

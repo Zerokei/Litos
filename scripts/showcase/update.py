@@ -1,5 +1,6 @@
 """Capture actual Obsidian scenes, restore the workspace, compose and compare assets."""
 import argparse
+import base64
 import datetime
 import html
 import json
@@ -79,7 +80,7 @@ def main():
     })())""")
     # Require existing showcase notes: never overwrite notes during a capture run.
     for scene in config["scenes"]:
-        note = "Litos Showcase/" + scene["note"] + ".md"
+        note = "examples/" + scene["note"] + ".md"
         if not evaluate("JSON.stringify(!!app.vault.getAbstractFileByPath(" + json.dumps(note) + "))"):
             raise RuntimeError("Missing showcase note: " + note)
 
@@ -113,7 +114,7 @@ def main():
                     const scene=%s,layout=%s;
                     layout.main.children=[{id:"showcase-tabs",type:"tabs",children:[{
                         id:"showcase-leaf",type:"leaf",state:{type:"markdown",state:{
-                            file:"Litos Showcase/"+scene.note+".md",mode:"preview",source:false
+                            file:"examples/"+scene.note+".md",mode:"preview",source:false
                         }}
                     }]}];
                     layout.active="showcase-leaf";
@@ -148,8 +149,13 @@ def main():
                         raise RuntimeError("Scene did not finish rendering: " + scene["output"])
                     time.sleep(.3)
                 time.sleep(.7)
-                cli("dev:screenshot", "path=" + str(assets / scene["output"]))
                 image = assets / scene["output"]
+                # The CLI screenshot command can use the host display's pixel ratio.
+                # Capture the emulated surface so batches stay reproducible across devices.
+                capture = json.loads(cdp("Page.captureScreenshot", {
+                    "format": "png", "captureBeyondViewport": False, "fromSurface": True
+                }))
+                image.write_bytes(base64.b64decode(capture["data"], validate=True))
                 if not image.is_file():
                     raise RuntimeError("Screenshot was not written")
                 data = image.read_bytes()

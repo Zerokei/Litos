@@ -33,6 +33,7 @@
 body {
   /* Litos Companion: optional display controls and diagram palette. */
   --litos-companion-api: 1;
+  --litos-theme-version: "1.2.0";
   --litos-h2-align: right;
   --litos-diagram-surface: var(--background-primary);
   --litos-diagram-node: var(--background-secondary);
@@ -40,6 +41,9 @@ body {
   --litos-diagram-border: var(--background-modifier-border);
   --litos-diagram-line: var(--text-muted);
   --litos-diagram-label: var(--background-primary);
+  --litos-diagram-node-radius: 16px;
+  --litos-diagram-label-radius: 13px;
+  --litos-diagram-line-width: 1px;
   --radius-s: 4px;
   /* 标题 */
   --h1-size: 2.00em;

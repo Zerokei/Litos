@@ -12,7 +12,7 @@ The command captures nine real Obsidian scenes, rebuilds both product covers, up
 
 - Obsidian running with its CLI enabled and available as `obsidian`.
 - The development vault open with Litos and Litos Companion enabled.
-- Existing `Litos Showcase/Reading.md`, `Workspace.md`, and `Connections.md`. The source notes are in `examples/brand/`; the capture command does not overwrite vault notes.
+- Existing `examples/Reading.md`, `Workspace.md`, and `Connections.md`. The source notes are in the theme repository's `examples/brand/`; the capture command does not overwrite vault notes.
 - Python 3 with venv support. The launcher creates an ignored local environment and installs the pinned packages on its first run.
 - Source Serif 4 Regular and Semibold TTF files in `~/Library/Fonts`, or pass `--font-dir /path/to/fonts`.
 - Cairo installed for SVG-to-PNG rendering (on macOS: `brew install cairo`).
@@ -26,6 +26,8 @@ Edit `scripts/showcase/scenes.json` to choose the vault, Companion repository, v
 Optional scene fields: `diagrams`, `zen`, `leftSidebar`, `rightSidebar`, `headingAlignment`, `width`, and `height`. Sidebars and Zen mode default to off. Cover source images use 1160 × 760 CSS pixels; their dimensions must stay in sync with the cover composer.
 
 Font choices and accent colors are inherited from the development vault. Use the same development vault settings for consistent batches.
+
+Capture uses the Chromium rendered surface with the configured device scale factor. This keeps PNG dimensions stable across host displays; Obsidian CLI's native screenshot command may use the physical display's pixel ratio instead.
 
 ## Review and recovery
 
