@@ -153,80 +153,248 @@ body a:hover {
   text-decoration: none;
 }
 
-/* 外链下划线（点阵，用 background-image 保证连续性） */
-:is(span.cm-link > a, a.external-link) {
+/* CM6 外层不重复绘制下划线；可见链接文字由内层装饰。 */
+body .markdown-source-view.mod-cm6 .cm-link {
+  --link-decoration: none;
+  --link-decoration-hover: none;
   text-decoration: none;
-  text-shadow: var(--link-text-shadow);
-  background-image: radial-gradient(circle closest-side, currentColor 100%, transparent 100%);
-  background-size: 2px 1px;
-  background-repeat: repeat-x;
-  background-position: 0% calc(100% - 0.1em);
+  color: inherit;
 }
 
-/* 外链颜色与字体 */
-span.cm-link > a,
-a.external-link {
-  color: var(--text-normal);
-  font-family: var(--font-text);
-  font-weight: normal;
-  font-size: 100%;
+/* 内外链共用装饰参数；正文排版与导航提示分别保留。 */
+body .markdown-rendered :is(a.internal-link, a.external-link),
+body .markdown-source-view.mod-cm6 :is(.cm-hmd-internal-link, .cm-link) .cm-underline,
+body a.external-link,
+body span.cm-link > a {
+  --litos-link-em: 1em;
+  --litos-link-rule-width: clamp(0.5px, calc(var(--litos-link-em) * 0.05), 1px);
+  --litos-link-rule-color: color-mix(in srgb, currentColor 80%, transparent);
 }
-span.cm-link > a:hover,
-a.external-link:hover {
+
+/* 通用外链继承所在段落的排版，使用较低的原生细线。 */
+body a.external-link,
+body .markdown-rendered a.external-link,
+body span.cm-link > a,
+body .markdown-source-view.mod-cm6 .cm-link .cm-underline {
+  --link-decoration: underline;
+  --link-decoration-hover: underline;
+  color: inherit;
+  font-family: inherit;
+  font-weight: inherit;
+  font-size: inherit;
+  position: relative;
+  padding-inline-end: 0.65em;
+  border-bottom: none;
+  box-decoration-break: slice;
+  text-decoration: underline solid var(--litos-link-rule-color) var(--litos-link-rule-width);
+  text-underline-offset: 0.16em;
+  text-decoration-skip-ink: auto;
+  text-shadow: none;
+  background-image: none;
+}
+
+/* CM6 外层在 hover 时也会画线；装饰仅由内层链接文字绘制。 */
+body .markdown-source-view.mod-cm6 .cm-hmd-internal-link {
+  --link-decoration: none;
+  --link-decoration-hover: none;
+  text-decoration: none;
+}
+
+/* 折角使用微型空白字框；注册长度以继承链接的实际字号，而非重新计算 em。 */
+@property --litos-link-em {
+  syntax: "<length>";
+  inherits: true;
+  initial-value: 16px;
+}
+
+/* 双链的通用回退与外链使用相同的下划线距离。 */
+body .markdown-rendered a.internal-link,
+body .markdown-source-view.mod-cm6 .cm-hmd-internal-link .cm-underline {
+  --link-decoration: underline;
+  --link-decoration-hover: underline;
+  padding-left: 0;
+  border-bottom: none;
+  box-decoration-break: slice;
+  text-decoration: underline solid var(--litos-link-rule-color) var(--litos-link-rule-width);
+  text-underline-offset: 0.16em;
+  text-decoration-skip-ink: auto;
+  text-shadow: none;
+  background-image: none;
+}
+
+/* 不换行空白保留四分之一字宽，让折角与首字一起换行。
+   增强样式只用它占位；原生回退时恢复按基线定位的短竖线。 */
+body .markdown-rendered a.internal-link::before,
+body .markdown-source-view.mod-cm6 .cm-hmd-internal-link .cm-underline::before {
+  content: "\00a0";
+  display: inline;
+  /* 保留非零字号，避免 Chromium 跳过空白的 underline。 */
+  font-family: monospace;
+  font-size: 1px;
+  line-height: 0;
+  vertical-align: baseline;
+  letter-spacing: calc(var(--litos-link-em) * 0.25 - 1ch);
+  padding-top: var(--litos-link-corner-top, calc(var(--litos-link-em) * 0.5 - 1px - var(--litos-link-rule-width) * 0.5));
+  padding-bottom: var(--litos-link-corner-bottom, calc(var(--litos-link-em) * 0.16 + var(--litos-link-rule-width) * 0.5));
+  background-image: var(--litos-link-corner-image, linear-gradient(var(--litos-link-rule-color), var(--litos-link-rule-color)));
+  background-size: var(--litos-link-rule-width) 100%;
+  background-position: left bottom;
+  background-repeat: no-repeat;
+  pointer-events: none;
+}
+
+/* 参考 Gwern 的宽字形留白：背景线位于字框下缘，背景色阴影仅遮去
+   笔画附近的线，不描粗文字。表面颜色随容器继承，不能固定为白色。
+   自定义背景容器可设置 --litos-link-surface 以声明其合成后的底色。 */
+body {
+  --litos-link-surface: var(--background-primary);
+}
+body .markdown-rendered :is(a.internal-link, a.external-link),
+body .markdown-source-view.mod-cm6 :is(.cm-hmd-internal-link, .cm-link) .cm-underline {
+  --link-decoration: none;
+  --link-decoration-hover: none;
+  --litos-link-corner-top: 0px;
+  --litos-link-corner-bottom: 0px;
+  --litos-link-corner-image: none;
+  text-decoration: none;
+  background-image: linear-gradient(var(--litos-link-rule-color), var(--litos-link-rule-color));
+  background-size: 1px var(--litos-link-rule-width);
+  background-position: left calc(100% - 0.04em);
+  background-repeat: repeat-x;
+  background-origin: content-box;
+  background-clip: content-box;
+  --litos-link-base-shadow:
+    0 0.05em var(--litos-link-surface),
+    0.05em 0.05em var(--litos-link-surface),
+    -0.05em 0.05em var(--litos-link-surface),
+    0.1em 0.05em var(--litos-link-surface),
+    -0.1em 0.05em var(--litos-link-surface),
+    0.17em 0.05em var(--litos-link-surface),
+    -0.17em 0.05em var(--litos-link-surface),
+    0.1em 0 var(--litos-link-surface),
+    -0.1em 0 var(--litos-link-surface),
+    0.17em 0 var(--litos-link-surface),
+    -0.17em 0 var(--litos-link-surface);
+  text-shadow: var(--litos-link-quote-shadow, var(--litos-link-base-shadow));
+}
+
+/* 引用的粗衬线降部更深：保留原遮罩并补足向下的连续覆盖。
+   只移动单层阴影会漏掉斜笔画；正文中文不扩大这段纵向遮罩。
+   内外链共用此补偿，原生高亮回退仍直接禁用 text-shadow。 */
+body .markdown-rendered blockquote:not(.callout) > p :is(a.internal-link, a.external-link) {
+  --litos-link-quote-shadow:
+    var(--litos-link-base-shadow),
+    0 0.1em var(--litos-link-surface),
+    0.05em 0.1em var(--litos-link-surface),
+    -0.05em 0.1em var(--litos-link-surface),
+    0.1em 0.1em var(--litos-link-surface),
+    -0.1em 0.1em var(--litos-link-surface),
+    0.17em 0.1em var(--litos-link-surface),
+    -0.17em 0.1em var(--litos-link-surface),
+    0 0.15em var(--litos-link-surface),
+    0.05em 0.15em var(--litos-link-surface),
+    -0.05em 0.15em var(--litos-link-surface),
+    0.1em 0.15em var(--litos-link-surface),
+    -0.1em 0.15em var(--litos-link-surface),
+    0.17em 0.15em var(--litos-link-surface),
+    -0.17em 0.15em var(--litos-link-surface);
+}
+
+/* 双链折角与横线在同一个字框内共用底边，跨行只保留起点折角。 */
+body .markdown-rendered a.internal-link,
+body .markdown-source-view.mod-cm6 .cm-hmd-internal-link .cm-underline {
+  background-image:
+    linear-gradient(var(--litos-link-rule-color), var(--litos-link-rule-color)),
+    linear-gradient(var(--litos-link-rule-color), var(--litos-link-rule-color));
+  background-size: 1px var(--litos-link-rule-width), var(--litos-link-rule-width) 0.6em;
+  background-repeat: repeat-x, no-repeat;
+}
+
+/* 在父子边界保存底色再合成，嵌套 callout 不产生自引用变量。
+   未定义 ctp-mantle 时，现有 callout 背景透明，沿用父表面即可。 */
+body .callout {
+  --litos-link-parent-surface: var(--litos-link-surface);
+  --litos-link-callout-surface: color-mix(in srgb, rgb(var(--ctp-mantle, from var(--litos-link-parent-surface) r g b)) 40%, var(--litos-link-parent-surface));
+}
+body .callout:not([data-callout-metadata*=revert]):not([data-callout=blank-container], [data-callout=multi-column], [data-callout=abstract]) > .callout-content {
+  --litos-link-surface: var(--litos-link-callout-surface);
+}
+body .callout:not([data-callout-metadata*=revert]):not([data-callout=blank-container], [data-callout=multi-column], [data-callout=abstract]) > .callout-title {
+  --litos-link-surface: color-mix(in srgb, var(--callout-color) 10%, var(--litos-link-callout-surface));
+}
+body .callout[data-callout=abstract] {
+  --litos-link-surface: var(--background-secondary);
+}
+
+/* 非均匀高亮与特殊 callout 保留原生细线。 */
+body .callout:is([data-callout-metadata*=revert], [data-callout=blank-container], [data-callout=multi-column], [data-callout|=sidenote], [data-callout|=stickynote]) :is(a.internal-link, a.external-link:not([href^="https://dblp.org"]), :is(.cm-hmd-internal-link, .cm-link) .cm-underline),
+body :is(mark, .cm-highlight) :is(a.internal-link, a.external-link:not([href^="https://dblp.org"]), :is(.cm-hmd-internal-link, .cm-link) .cm-underline),
+body .markdown-rendered :is(a.internal-link, a.external-link):has(mark),
+body .markdown-source-view.mod-cm6 :is(.cm-hmd-internal-link, .cm-link).cm-highlight .cm-underline,
+body .markdown-source-view.mod-cm6 .cm-highlight :is(.cm-hmd-internal-link, .cm-link) .cm-underline,
+body .markdown-source-view.mod-cm6 :is(.cm-hmd-internal-link, .cm-link) .cm-underline.cm-highlight {
+  --link-decoration: underline;
+  --link-decoration-hover: underline;
+  --litos-link-corner-top: initial;
+  --litos-link-corner-bottom: initial;
+  --litos-link-corner-image: initial;
+  text-decoration: underline solid var(--litos-link-rule-color) var(--litos-link-rule-width);
+  text-shadow: none;
+  background-image: none;
+}
+body a.external-link::selection,
+body a.internal-link::selection,
+body .cm-link::selection,
+body .cm-hmd-internal-link::selection,
+body :is(.cm-hmd-internal-link, .cm-link) .cm-underline::selection {
+  text-shadow: none;
+}
+body a.external-link:hover,
+body .markdown-rendered a.external-link:hover,
+body span.cm-link > a:hover,
+body .markdown-source-view.mod-cm6 .cm-link:hover,
+body .markdown-source-view.mod-cm6 .cm-link .cm-underline:hover {
   color: var(--link-color-hover);
 }
 
-/* 外链图标（默认：右上角小箭头） */
-span.cm-link > a::after,
-a.external-link::after {
-  /* 文字图标默认值（Gwern text icon 方案） */
+/* 箭头放在末尾预留的 padding 中，不参与文字下划线，也不单独换行。
+   auto inset 使用最后一行末尾的静态位置，不锚定跨行链接的第一行。 */
+body a.external-link::after,
+body .markdown-rendered a.external-link::after,
+body span.cm-link > a::after,
+body .markdown-source-view.mod-cm6 .cm-link .cm-underline::after {
   content: "\2197";
-  position: relative;
-  bottom: 0.25em;
-  font-size: 0.75em;
-  font-weight: 600;
+  position: absolute;
+  inset: auto;
+  font-size: 0.6em;
+  font-weight: 400;
   line-height: 1;
-  padding-left: 0.12em;
-  color: var(--text-muted);
+  margin-inline-start: 0.16em;
+  margin-block-start: 0.3em;
+  color: color-mix(in srgb, currentColor 65%, transparent);
+  text-shadow: none;
+  pointer-events: none;
 }
 
 
-/* DBLP 链接 */
-/* HACK 只设置了 Reading Mode */
-a.external-link[href^="https://dblp.org"] {
+/* 保留现有 DBLP 品牌图标，仅显示一个导航提示。 */
+body .markdown-rendered a.external-link[href^="https://dblp.org"] {
   margin-left: 0.3em;
   overflow: hidden;
   padding-left: var(--external-link-padding-right);
+  padding-inline-end: 0;
   background-repeat: no-repeat;
   background-position: var(--external-link-icon-position);
   background-position-y: var(--external-link-icon-position-y);
   background-size: var(--external-link-icon-size);
   background-image: var(--dblp-link-icon);
+  background-origin: padding-box;
+  background-clip: border-box;
+  text-decoration: underline solid var(--litos-link-rule-color) var(--litos-link-rule-width);
+  text-shadow: none;
 }
-
-/* 内链样式 */
-span.cm-hmd-internal-link > a,
-a.internal-link {
-  color: currentColor;
-  text-decoration: none;
-  text-shadow: var(--link-text-shadow);
-  background-image: linear-gradient(currentColor, currentColor);
-  background-size: 1px 1px;
-  background-repeat: repeat-x;
-  background-position: 0% calc(100% - 0.1em);
-}
-
-/* 内链短竖线（inline-block 避免跨行时竖线错位） */
-span.cm-hmd-internal-link > a::before,
-a.internal-link::before {
-  content: "";
-  display: inline-block;
-  width: 0;
-  height: 0.6em;
-  border-left: 1px solid currentColor;
-  vertical-align: -0.18em;
-  margin-right: 0.15em;
-  pointer-events: none;
+body .markdown-rendered a.external-link[href^="https://dblp.org"]::after {
+  content: none;
 }
 
 :where(body) {
@@ -246,14 +414,14 @@ a.internal-link::before {
 /* 链接在 Callout 里的样式修正 */
 body .callout-title-inner > a.external-link[aria-label] {
   color: var(--callout-title-color);
-  background-image: none;
   padding-left: 0;
+  padding-inline-end: 0;
 }
 body .callout-title-inner > a.external-link[aria-label]::after {
   content: none;
 }
 
-/* 取消普通外链默认图标（由 ::after 替代） */
+/* 清除宿主背景图标，也覆盖 CM6 隐藏的链接目的地址。 */
 body .external-link {
   padding-right: 0;
   background-image: none;
