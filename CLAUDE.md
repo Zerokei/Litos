@@ -11,6 +11,7 @@ Litos is a single-file Obsidian CSS theme (academic aesthetics, Tufte-style side
 - **Dual-mode CSS**: Every style must target both Reading mode (`.markdown-rendered`) and Live Preview (`.cm-content` / `.cm-line`).
 - **Edit `theme.css` directly**: Section comments like `/* === css/basic.css === */` are markers, not imports.
 - **Use Obsidian CLI** (`obsidian eval`) for hot-reload and DOM inspection.
+- **Release levels**: Level 3 style changes and bug fixes increment PATCH; level 2 new features increment MINOR; level 1 major redesigns, overall architecture refactors, or breaking contracts increment MAJOR. Use the highest level since the previous release and reset lower fields. Development commits do not each require a version bump. See `.claude/commands/release.md` for release checks and metadata.
 
 ## References
 
