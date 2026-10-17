@@ -73,6 +73,8 @@ body {
   --blockquote-border-thickness: 0px;
   --callout-radius: 4px;
   --tab-stacked-pane-width: 100%;
+  /* 文件路径居中（阅读模式和实时预览共用） */
+  --file-header-justify: center;
   /* 链接下划线 text-shadow（防止中文字体覆盖下划线） */
   --link-text-shadow:
      0      0.01em var(--background-primary),
@@ -306,10 +308,13 @@ code {
 
 /* ===== 引用样式 ===== */
 
-div.el-blockquote > blockquote {
+/* callout 内的引用没有 el-blockquote 外层，两种模式都需覆盖。 */
+.markdown-rendered blockquote:not(.callout),
+.markdown-source-view blockquote:not(.callout) {
   display: flow-root;
   margin: 1em 0;
-  padding: 0.75em 2.5em;
+  /* 为装饰性闭引号留出底部空间，避免撑出滚动条。 */
+  padding: 0.75em 2.5em 1.5em;
   border-inline-start: none;
 }
 
@@ -682,6 +687,10 @@ body div.table-wrapper div.cm-scroller {
 
 /* ===== css/ui.css ===== */
 
+/* 专注模式隐藏导航容器，避免路径栏左侧保留间隙。 */
+body.litos-companion-zen div.view-header > .view-header-left {
+    display: none;
+}
 
 :where(body) {
     --tab-text-color-focused-active-current: var(--text-accent);
