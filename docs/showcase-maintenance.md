@@ -13,11 +13,12 @@ The command captures nine real Obsidian scenes, rebuilds both product covers, up
 - Obsidian running with its CLI enabled and available as `obsidian`.
 - The development vault open with Litos and Litos Companion enabled.
 - Existing `examples/Reading.md`, `Workspace.md`, and `Connections.md`. The source notes are in the theme repository's `examples/brand/`; the capture command does not overwrite vault notes.
+- For the enhanced diagram scenes, ensure the vault's `examples/Connections.md` includes `config.layout: elk` in its Mermaid block, as shown in the source example.
 - Python 3 with venv support. The launcher creates an ignored local environment and installs the pinned packages on its first run.
 - Source Serif 4 Regular and Semibold TTF files in `~/Library/Fonts`, or pass `--font-dir /path/to/fonts`.
 - Cairo installed for SVG-to-PNG rendering (on macOS: `brew install cairo`).
 
-Keep Obsidian free of dialogs and avoid interacting with it while capture is running. This workflow uses Obsidian's application APIs and was verified against 1.13.7; a future API change may require updating the capture adapter.
+Keep Obsidian free of dialogs and avoid interacting with it while capture is running. This workflow uses Obsidian's application APIs. It was verified against 1.13.7 and, with a temporary transport adapter for an isolated test client, 1.15.0. A future API change may require updating the capture adapter.
 
 ## Configuration
 

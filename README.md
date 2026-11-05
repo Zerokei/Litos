@@ -14,6 +14,8 @@ A considered workspace for Obsidian, with editorial typography, clear controls, 
 
 Litos works on its own. [Litos Companion](https://github.com/Zerokei/Litos-Companion) adds heading alignment, Zen mode, an accent color entry, and optional Mermaid ELK rendering.
 
+Mermaid diagrams use Obsidian's renderer by default, including Pele in Obsidian 1.15 and later. With Companion enabled, a flowchart can request ELK with `config.layout: elk` in its Mermaid block. See the [Connections example](examples/brand/Connections.md).
+
 ## Installation
 
 Requires Obsidian **1.13.7 or later**.

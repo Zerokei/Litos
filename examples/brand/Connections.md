@@ -3,6 +3,10 @@
 A simple map helps separate gathering material from deciding what to say. Return to the sources whenever the draft reveals a gap.
 
 ```mermaid
+---
+config:
+  layout: elk
+---
 flowchart LR
     A[Ask a question] --> B[Collect observations]
     B --> C[Connect ideas]

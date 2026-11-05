@@ -26,7 +26,7 @@ The optional plugin adds ELK layout to Mermaid flowcharts. This example shows a 
 
 ## Try the notes
 
-Copy the [example notes](../examples/brand/) into your vault. Diagram enhancement must be enabled in Companion for the enhanced flowchart. Fonts, accent colors, window width, and other settings can change the appearance.
+Copy the [example notes](../examples/brand/) into your vault. The flowchart in Connections requests Companion's layout with `config.layout: elk` in its Mermaid block. Other flowcharts use Obsidian's renderer by default. Fonts, accent colors, window width, and other settings can change the appearance.
 
 [Back to Litos](../README.md)
 

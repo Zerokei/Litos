@@ -33,7 +33,7 @@
 body {
   /* Litos Companion: optional display controls and diagram palette. */
   --litos-companion-api: 1;
-  --litos-theme-version: "1.2.0";
+  --litos-theme-version: "1.2.1";
   --litos-h2-align: right;
   --litos-diagram-surface: var(--background-primary);
   --litos-diagram-node: var(--background-secondary);
@@ -802,8 +802,18 @@ body [data-task="+"][type=checkbox]:checked {
 
 /* ===== css/mermaid.css ===== */
 
-/* Mermaid */
-body div.mermaid {
+/* Obsidian's native Pele diagrams read these values from their container. */
+.mermaid {
+  --mermaid-background: var(--litos-diagram-surface);
+  --mermaid-text-color: var(--litos-diagram-text);
+  --mermaid-line-color: var(--litos-diagram-line);
+  --mermaid-surface: var(--litos-diagram-node);
+  --mermaid-border-color: var(--litos-diagram-border);
+  --mermaid-radius: var(--litos-diagram-node-radius);
+}
+
+/* Pele handles resizing and zoom controls inside the same container. */
+body div.mermaid:not(:has(svg.pele)) {
   margin-left: 0;
   text-align: center;
   resize: both;
@@ -814,7 +824,7 @@ body div.mermaid {
   max-width: 100%;
 }
 
-div.mermaid svg {
+div.mermaid:not(:has(svg.pele)) svg {
   max-width: 100%;
   max-height: 100%;
   height: auto;
@@ -825,7 +835,7 @@ div.mermaid svg {
   border-radius: var(--radius-s);
 }
 
-div.mermaid::after {
+div.mermaid:not(:has(svg.pele))::after {
   content: '';
   display: block;
   width: 10px;
@@ -835,7 +845,7 @@ div.mermaid::after {
   bottom: 0;
 }
 
-body div.mermaid svg:not(.litos-companion-diagram) rect {
+body div.mermaid:not(:has(svg.pele)) svg:not(.litos-companion-diagram) rect {
   stroke: var(--border-color);
   fill: transparent;
 }
@@ -882,7 +892,7 @@ body .workspace-tabs:not(.mod-stacked) > .workspace-tab-header-container {
 }
 /* 顶部标签栏与内容区之间的分隔线；内阴影不改变布局尺寸。 */
 body:not(.is-mobile):not(.litos-companion-zen) .workspace-tabs.mod-top:not(.mod-stacked) > .workspace-tab-header-container,
-body:not(.is-mobile):not(.litos-companion-zen) .workspace-ribbon.mod-left::before {
+body:not(.is-mobile):not(.litos-companion-zen) .workspace-ribbon:is(.mod-left, .mod-primary)::before {
     box-shadow: inset 0 -1px color-mix(in srgb, var(--background-modifier-border) 50%, transparent);
 }
 body .workspace-tabs.mod-stacked .workspace-tab-header-container {
@@ -1182,16 +1192,17 @@ body {
     --status-bar-font-size: var(--font-ui-smaller);
     --status-bar-border-color: color-mix(in srgb, var(--background-modifier-border) 50%, transparent);
 }
-/* Ribbon 顶部的原生拖拽占位也使用顶栏底色，避免红绿灯后出现色块。 */
-body .workspace-ribbon.mod-left::before {
+/* 主 Ribbon 兼容 mod-primary 与旧的 mod-left 类名。
+   顶部原生拖拽占位使用顶栏底色，避免窗口控制按钮后出现色块。 */
+body .workspace-ribbon:is(.mod-left, .mod-primary)::before {
     background-color: var(--background-primary);
     border-bottom: none;
 }
-body .workspace-ribbon.mod-left {
+body .workspace-ribbon:is(.mod-left, .mod-primary) {
     border-right: 1px solid color-mix(in srgb, var(--background-modifier-border) 50%, transparent);
 }
 /* 仅全屏时将分隔线延伸到顶部，避免穿过 macOS 窗口控制按钮。 */
-body.is-fullscreen .workspace-ribbon.mod-left::before {
+body.is-fullscreen .workspace-ribbon:is(.mod-left, .mod-primary)::before {
     border-right: inherit;
 }
 body .workspace-ribbon.mod-left .side-dock-ribbon-action {
